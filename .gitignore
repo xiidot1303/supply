@@ -7,3 +7,6 @@ files/
 app/migrations
 persistencebot
 staticfiles
+!bots/__init__.py
+!bots/supplier/__init__.py
+!bots/applicant/__init__.py
