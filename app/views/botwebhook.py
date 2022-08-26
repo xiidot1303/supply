@@ -31,7 +31,7 @@ def supplier_webhook(request):
     else:
         update = Update.de_json(json.loads(request.body.decode("utf-8")), supplier_dp.bot)
         # supplier_dp.run_async(supplier_dp.process_update(update))
-        supplier_dp.update_persistence(update)
-        supplier_dp.process_update(update)
+        supplier_dp.run_async(supplier_dp.update_persistence(update))
+        supplier_dp.run_async(supplier_dp.process_update(update))
         # supplier_dp.start()
     return HttpResponse("Bot started!")

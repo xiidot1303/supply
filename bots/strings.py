@@ -29,7 +29,7 @@ lang_dict = {
     "settings desc": ["""Sozlamalar ⚙️""", """Настройки ⚙️"""],
     "your phone number": [
         """📌 Sizning telefon raqamingiz: <> 📌""",
-        """📌 Ваш номер телефона: <i> 📌""",
+        """📌 Ваш номер телефона: <> 📌""",
     ],
     "send new phone number": [
         """Yangi telefon raqamingizni yuboring!\n<i>Jarayonni bekor qilish uchun "🔙 Ortga" tugmasini bosing.</i>""",
