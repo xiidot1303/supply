@@ -1,0 +1,55 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+
+{% block title %}
+Все Поставщики 
+{% endblock %}
+
+{% block main %}
+
+
+<table class="table">
+    <thead>
+       <tr>
+          <th scope="col">№</th>
+          <th>Имя</th>
+          <th>Номер телефона</th>
+          <th>Username</th>
+          <th>Доступ</th>
+          <th>Действия</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for l in list %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ l.name }}</td>
+            <td>{{ l.phone }}</td>
+            <td>
+                {% if l.username %}
+                <a href="https://t.me/{{ l.username }}" target="_blank">@{{ l.username }}</a>
+                {% else %}
+                <a href="tg://user?id={{ l.user_id }}" target="_blank">{{ l.firstname }}</a>
+                {% endif %}
+            </td>
+            <td>
+                {% if l.access %}
+                <i class="fas fa-check-circle" style="color: green;"></i>
+                {% else %}
+                <i class="fas fa-times" style="color: red;"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if l.access %}
+                <a id = "a" href="{% url 'supplier_change_status' l.pk 'block' %}" class="btn btn-danger rounded-pill mt-2">Блокировать</a>
+                {% else %}
+                <a id = "a" href="{% url 'supplier_change_status' l.pk 'active' %}" class="btn btn-success rounded-pill mt-2">Активировать</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+ </table>
+
+{% endblock %}

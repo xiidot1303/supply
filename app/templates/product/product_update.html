@@ -1,0 +1,46 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+
+{% block title %}
+Редактирование товараa
+{% endblock %}
+
+{% block main %}
+
+<form method = "post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+    {% for f in form %}
+
+        {% if forloop.counter0 == 3 or forloop.counter0 == 3%}
+        </div>
+        <div class="row">
+        {% else %}
+        {% endif %}
+        <div class="col">
+            {% if f.id_for_label == 'id_photo' %}
+            <div class="custom-file mb-3">
+                {{ f.errors }} 
+                <!-- <p>Custom file:</p> -->
+                <label class="custom-file-label" for="id_photo">Фото</label>
+                {{ f }}
+            </div>
+            {% else %}
+            <div class="form-group">
+                    {{ f.errors }} 
+                    {{ f.label_tag }}    {{ f }}
+            </div>
+            {% endif %}
+        </div>
+        
+    {% endfor %}
+    </div>
+    <div style="text-align: center;">
+        <!-- <button type="submit" class="btn btn-primary">Сохранять</button> -->
+    </div>
+
+</form>
+
+
+{% endblock %}

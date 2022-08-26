@@ -1,0 +1,74 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+{% load functions %}
+
+{% block title %}
+Заявка № {{ statement_id }} - Условия
+{% endblock %}
+
+{% block main %}
+
+<h3 style="margin-bottom: 30px;">
+Заявка № {{ statement_id }}
+</h3>
+
+<table class="table">
+    <thead>
+       <tr>
+          <th>№</th>
+          <th>Снабженец</th>
+          <th>Цена</th>
+          <th>Срок</th>
+          <th>Комментарий</th>
+          <th>Действия</th>
+
+       </tr>
+    </thead>
+    <tbody>
+        {% for l in list %}
+        {% if l.status == 'conf' %}
+       <tr style="background-color: rgba(7, 254, 7, 0.397);">
+        {% else %}
+        <tr>
+        {% endif %}
+            <td>{{ forloop.counter }}</td>
+            <td>{{ l.supplier.name }}</td>
+            <td>{{ l.price }}</td>
+            <td>{{ l.due|date:"d.m.Y" }}</td>
+            <td>
+                <button type="button" class="btn iq-bg-success mt-2" data-container="body" data-toggle="popover"
+                data-placement="left" data-content="{{ l.comment }}">
+                  {{ l.comment|cuttext }}
+               </button>
+            </td>
+            <td>
+                {% if l.statement.status != 'end' %}
+                <a href="{% url 'statement_accept_supply' l.pk %}" class=" mt-2 btn btn-primary" style="background-color: rgb(0, 154, 21);" role="button"  
+                data-toggle="tooltip" title="Принимать"  onclick="return confirm(&#39;Вы уверены?&#39;)">
+                    <i class="fas fa-check-circle"></i>
+                </a>
+                <div class="tooltip bs-tooltip-top" role="tooltip">
+                   <div class="arrow"></div>
+                   <div class="tooltip-inner">Принимать</div>
+                </div>
+                {% else %}
+                {% endif %}
+
+            </td>
+
+
+
+
+       </tr>
+       {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block script %}
+<script>
+
+</script>
+{% endblock %}
+

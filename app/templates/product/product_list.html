@@ -1,0 +1,57 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+
+{% block title %}
+Продукты
+{% endblock %}
+
+{% block main %}
+
+<table id="datatable" class="table data-table table-striped table-bordered" >
+    <thead>
+       <tr>
+          <th>№</th>
+          <th>Название</th>
+          <th>ID</th>
+          <th>Склад</th>
+          <th>ID склада</th>
+          <th>Количество</th>
+          <th>Действия</th>
+
+       </tr>
+    </thead>
+    <tbody>
+        {% for l in list %}
+       <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ l.title }}</td>
+            <td>{{ l.product_id }}</td>
+            <td>{{ l.warehouse }}</td>
+            <td>{{ l.warehouse_id }}</td>
+            <td>{{ l.amount }}</td>
+            <td>
+                <!-- <a id = "a" href="{% url 'product_delete' l.pk %}" onclick="return confirm(&#39;Вы уверены?&#39;)"
+                 class="btn btn-danger rounded-pill mt-2">
+                    <i class="fas fa-trash" aria-hidden="true"></i></a> -->
+
+                 <a id = "a" href="{% url 'product_update' l.pk %}" class="btn btn-primary rounded-pill mt-2">
+                    <i class="fas fa-eye"></i>
+                </a>        
+            </td>
+
+
+
+
+       </tr>
+       {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block script %}
+<script>
+
+</script>
+{% endblock %}
+

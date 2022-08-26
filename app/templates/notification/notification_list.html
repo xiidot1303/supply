@@ -1,0 +1,48 @@
+{% extends 'layout/basic.html' %}
+
+{% load static %}
+
+{% block title %}
+Уведомление
+{% endblock %}
+
+{% block main %}
+
+<h3 style="margin-bottom: 30px;">Доступные группы</h3>
+
+<table class="table">
+    <thead>
+       <tr>
+          <th scope="col">№</th>
+          <th>Название</th>
+          <th>ID</th>
+          <th>Доступ</th>
+          <th>Действия</th>
+       </tr>
+    </thead>
+    <tbody>
+        {% for l in list %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ l.title }}</td>
+            <td>{{ l.group_id }}</td>
+            <td>
+                {% if l.access %}
+                <i class="fas fa-check-circle" style="color: green;"></i>
+                {% else %}
+                <i class="fas fa-times" style="color: red;"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if l.access %}
+                <a id = "a" href="{% url 'notification_change_status' l.pk 'block' %}" class="btn btn-danger rounded-pill mt-2">Блокировать</a>
+                {% else %}
+                <a id = "a" href="{% url 'notification_change_status' l.pk 'active' %}" class="btn btn-success rounded-pill mt-2">Активировать</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+ </table>
+
+{% endblock %}
