@@ -26,7 +26,7 @@ bot_obj = Bot(APPLICANT_BOT_API_TOKEN)
 # async def main():
 if not DEBUG:  # in production
     updater = 1213
-    dp = Dispatcher(bot_obj, None, workers=0, use_context=True, persistence=persistence)
+    dp = Dispatcher(bot_obj, None, workers=10, use_context=True, persistence=persistence)
 else:  # in development
     updater = Updater(
         token=APPLICANT_BOT_API_TOKEN, workers=10000, use_context=True, persistence=persistence
