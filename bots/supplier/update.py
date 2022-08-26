@@ -59,7 +59,6 @@ settings_handler = ConversationHandler(
     fallbacks=[],
     name="settings",
     persistent=True,
-    per_message=True
 )
 
 supply_handler = ConversationHandler(
@@ -72,7 +71,6 @@ supply_handler = ConversationHandler(
     fallbacks=[],
     name='supply',
     persistent=True,
-    # per_message=True
 )
 
 dp.add_handler(supply_handler)
