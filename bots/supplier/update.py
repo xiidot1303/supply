@@ -70,7 +70,8 @@ supply_handler = ConversationHandler(
     },
     fallbacks=[],
     name='supply',
-    persistent=True
+    persistent=True,
+    per_message=True
 )
 
 dp.add_handler(supply_handler)
