@@ -1,7 +1,7 @@
 from django.db import models
 
 class Applicant(models.Model):
-    user_id = models.IntegerField(null=True)
+    user_id = models.BigIntegerField(null=True)
     name = models.CharField(null=True, blank=True, max_length=256, default='')
     username = models.CharField(null=True, blank=True, max_length=256)
     firstname = models.CharField(null=True, blank=True, max_length=256)
@@ -16,7 +16,7 @@ class Applicant(models.Model):
             return super().__str__()
 
 class Supplier(models.Model):
-    user_id = models.IntegerField(null=True)
+    user_id = models.BigIntegerField(null=True)
     name = models.CharField(null=True, blank=True, max_length=256, default='')
     username = models.CharField(null=True, blank=True, max_length=256)
     firstname = models.CharField(null=True, blank=True, max_length=256)
