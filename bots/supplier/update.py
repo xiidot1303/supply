@@ -73,6 +73,7 @@ supply_handler = ConversationHandler(
     persistent=True,
 )
 
-dp.add_handler(supply_handler)
 dp.add_handler(settings_handler)
 dp.add_handler(login_handler)
+
+dp.add_handler(supply_handler)
