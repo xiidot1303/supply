@@ -15,8 +15,9 @@ def applicant_webhook(request):
         applicant_updater.start_polling()
     else:
         update = Update.de_json(json.loads(request.body.decode("utf-8")), applicant_dp.bot)
-        # applicant_dp.run_async(applicant_dp.process_update(update))
-        applicant_dp.process_update(update)
+        applicant_dp.run_async(applicant_dp.update_persistence(update))
+        applicant_dp.run_async(applicant_dp.process_update(update))
+        # applicant_dp.process_update(update)
         # applicant_dp.start()
     return HttpResponse("Bot started!")
 
@@ -30,6 +31,7 @@ def supplier_webhook(request):
     else:
         update = Update.de_json(json.loads(request.body.decode("utf-8")), supplier_dp.bot)
         # supplier_dp.run_async(supplier_dp.process_update(update))
+        supplier_dp.update_persistence(update)
         supplier_dp.process_update(update)
         # supplier_dp.start()
     return HttpResponse("Bot started!")

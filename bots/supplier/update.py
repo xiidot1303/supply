@@ -18,7 +18,6 @@ from bots.supplier import (
 )
 
 persistence = PicklePersistence(filename="persistencebot2")
-persistence = None
 
 bot_obj = Bot(SUPPLIER_BOT_API_TOKEN)
 
@@ -27,7 +26,7 @@ if not DEBUG:  # in production
     dp = Dispatcher(bot_obj, None, workers=10, use_context=True, persistence=persistence)
 else:  # in development
     updater = Updater(
-        token=SUPPLIER_BOT_API_TOKEN, workers=10000, use_context=True, persistence=persistence
+        token=SUPPLIER_BOT_API_TOKEN, workers=10, use_context=True, persistence=persistence
     )
     dp = updater.dispatcher
 
@@ -43,8 +42,7 @@ login_handler = ConversationHandler(
     },
     fallbacks=[],
     name="login",
-    # persistent=True,
-    run_async=True
+    persistent=True,
 )
 
 settings_handler = ConversationHandler(
@@ -60,8 +58,7 @@ settings_handler = ConversationHandler(
     },
     fallbacks=[],
     name="settings",
-    # persistent=True,
-    run_async=True
+    persistent=True,
 )
 
 supply_handler = ConversationHandler(
@@ -73,7 +70,7 @@ supply_handler = ConversationHandler(
     },
     fallbacks=[],
     name='supply',
-    run_async=True
+    persistent=True
 )
 
 dp.add_handler(supply_handler)

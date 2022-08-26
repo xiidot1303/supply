@@ -6,6 +6,7 @@ venv
 files/
 app/migrations
 persistencebot
+persistencebot2
 staticfiles
 !bots/__init__.py
 !bots/supplier/__init__.py

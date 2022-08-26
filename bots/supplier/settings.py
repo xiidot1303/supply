@@ -12,6 +12,8 @@ from app.services import supplierservice
 
 @is_start
 def all_settings(update, context):
+    import time
+    time.sleep(5)
     msg = update.message.text
     bot = context.bot
 

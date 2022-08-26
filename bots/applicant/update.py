@@ -19,17 +19,16 @@ from bots.applicant import (
 )
 
 persistence = PicklePersistence(filename="persistencebot")
-# persistence = None
-# persistence = DBPersistence()
 
 bot_obj = Bot(APPLICANT_BOT_API_TOKEN)
-# async def main():
+
 if not DEBUG:  # in production
     updater = 1213
     dp = Dispatcher(bot_obj, None, workers=10, use_context=True, persistence=persistence)
+
 else:  # in development
     updater = Updater(
-        token=APPLICANT_BOT_API_TOKEN, workers=10000, use_context=True, persistence=persistence
+        token=APPLICANT_BOT_API_TOKEN, workers=10, use_context=True, persistence=persistence,
     )
     dp = updater.dispatcher
 
@@ -42,8 +41,8 @@ login_handler = ConversationHandler(
     },
     fallbacks=[],
     name="login",
-    # persistent=True,
-    run_async=True
+    persistent=True,
+
 )
 
 settings_handler = ConversationHandler(
@@ -59,8 +58,8 @@ settings_handler = ConversationHandler(
     },
     fallbacks=[],
     name="settings",
-    # persistent=True,
-    run_async=True
+    persistent=True,
+  
 )
 
 
@@ -74,8 +73,8 @@ statement_handler = ConversationHandler(
     },
     fallbacks=[],
     name='statement',
-    run_async=True, 
-    # persistent=True
+
+    persistent=True
 )
 
 search_handler = ConversationHandler(
@@ -88,7 +87,7 @@ search_handler = ConversationHandler(
     },
     fallbacks=[],
     name='search',
-    run_async=True
+    persistent=True,
 )
 
 search_handler = MessageHandler(Filters.text(lang_dict['search']), main.search)
@@ -98,9 +97,5 @@ dp.add_handler(search_handler)
 dp.add_handler(statement_handler)
 dp.add_handler(settings_handler)
 dp.add_handler(login_handler)
-
 dp.add_handler(CallbackQueryHandler(main.accept_supply))
 
-
-# if __name__ == '__main__':
-#     asyncio.run(main())
