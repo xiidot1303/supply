@@ -1,5 +1,5 @@
 import requests
-from config import CREATING_STATEMENT_URL as url, ONE_C_SERVER_LOGIN as login, ONE_C_SERVER_PASSWORD as password
+from config import CREATING_STATEMENT_URL as url, ONE_C_SERVER_LOGIN as login, ONE_C_SERVER_PASSWORD as password, DEBUG
 from app.models import Statement
 
 result = {
@@ -22,7 +22,8 @@ def create_statement_api(statement):
     }
     result['order'] = order
     try:
-        r = requests.post(url=url, json=result, auth=(login, password))
+        if not DEBUG:
+            r = requests.post(url=url, json=result, auth=(login, password))
         # print(r.content.decode())
     except:
         a = 0
@@ -46,7 +47,8 @@ def add_supply_api(supply):
     result['supplier'].append(supplier)
 
     try:
-        r = requests.post(url=url, json=result, auth=(login, password))
+        if not DEBUG:
+            r = requests.post(url=url, json=result, auth=(login, password))
         # print(r.content.decode())
     except:
         a = 0
