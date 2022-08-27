@@ -7,3 +7,4 @@ python-telegram-bot==13.11
 requests==2.27.1
 virtualenv==20.14.1
 transliterate==1.10.2
+dj-static==0.0.6
