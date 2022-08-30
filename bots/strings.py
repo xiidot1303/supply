@@ -129,8 +129,8 @@ lang_dict = {
     ],
 
     "statement details": [
-        "<b>📄 Buyurtma № #{order_id}</b>\nTovar: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{product_comment}</i>",
-        "<b>📄 Заказ № #{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>"
+        "<b>📄 Buyurtma № #n_{order_id}</b>\nTovar: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{product_comment}</i>",
+        "<b>📄 Заказ № #n_{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>"
         ],
 
     "applicant details": [
@@ -139,10 +139,10 @@ lang_dict = {
     ],
 
     "new order": [
-        "🆕 <b>Yangi buyurtma № #{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\n\n" +
+        "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\n\n" +
         "ℹ️ <b>Tovar haqida ma'lumotlar</b>\nNom: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{comment}</i>\n\n", 
         
-        "🆕 <b>Новый заказ № #{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\n\n" +
+        "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\n\n" +
         "ℹ️ <b>Информация о товаре</b>\nНазвание: {title}\nКоличество: {amount}\nКомментарий: <i>{comment}</i>\n\n", 
         
         ],
@@ -166,6 +166,6 @@ lang_dict = {
 }
 
 text = '📨 <b>Новая условия от снабженца</b>\n\n'
-text += '<b>📄 Заказ № #{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>\n\n➖ ➖ ➖ ➖ ➖\n\n'
+text += '<b>📄 Заказ № #n_{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>\n\n➖ ➖ ➖ ➖ ➖\n\n'
 text += '<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарий: <i>{comment}</i>'
 lang_dict['notify new supply'] = text
