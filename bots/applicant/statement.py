@@ -10,13 +10,13 @@ def _to_the_typing_product_type(update):
     update_message_reply_text(update, text)
     return GET_PRODUCT_TYPE
 
-def _to_the_typing_product_amount(update):
-    text = get_word('type product amount', update)
+def _to_the_typing_product_amount(update, obj):
+    text = get_word('type product amount', update) + ' ({})'.format(obj.product)
     update_message_reply_text(update, text)
     return GET_PRODUCT_AMOUNT
 
-def _to_the_typing_product_comment(update):
-    text = get_word('type product comment', update)
+def _to_the_typing_product_comment(update, obj):
+    text = get_word('type product comment', update) + ' ({})'.format(obj.product)
     update_message_reply_text(update, text)
     return GET_PRODUCT_COMMENT
 
@@ -62,7 +62,7 @@ def get_product_name(update, context):
         update.message.message_id-1,
     )
 
-    return _to_the_typing_product_amount(update)
+    return _to_the_typing_product_amount(update, obj)
 
 @is_start
 def get_product_type(update, context): # inactive
@@ -74,7 +74,7 @@ def get_product_type(update, context): # inactive
     obj.type = msg
     obj.save()
 
-    return _to_the_typing_product_amount(update)
+    return _to_the_typing_product_amount(update, obj)
     
 @is_start
 def get_product_amount(update, context):
@@ -86,15 +86,15 @@ def get_product_amount(update, context):
     obj.amount = msg
     obj.save()
 
-    return _to_the_typing_product_comment(update)
+    return _to_the_typing_product_comment(update, obj)
 
 @is_start
 def get_product_comment(update, context):
     msg = update.message.text
-    if msg == get_word('back', update):
-        return _to_the_typing_product_amount(update)
-    
     obj = statementservice.get_current_object_by_update(update)
+    if msg == get_word('back', update):
+        return _to_the_typing_product_amount(update, obj)
+    
     obj.comment = msg
     obj.save()
 

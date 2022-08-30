@@ -47,6 +47,7 @@ class Statement(models.Model):
         choices=(
             ("wait", "waiting"),
             ("end", "end"),
+            ("cancel", "cancelled"),
         ),
     )
     product_obj = models.ForeignKey('Product', null=True, blank=True, on_delete=models.PROTECT)

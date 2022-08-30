@@ -3,20 +3,20 @@ from bots import *
 from app.services import supplyservice, apiservice, notificationservice
 from datetime import date, datetime
 
-def _to_the_typing_supply_price(update):
-    text = get_word('type supply price', update)
+def _to_the_typing_supply_price(update, obj):
+    text = get_word('type supply price', update) + ' ({})'.format(obj.statement.product)
     button = reply_keyboard_markup(keyboard=[[get_word('main menu', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_PRICE
 
-def _to_the_typing_supply_due(update):
-    text = get_word('type supply due', update)
+def _to_the_typing_supply_due(update, obj):
+    text = get_word('type supply due', update) + ' ({})'.format(obj.statement.product)
     button = reply_keyboard_markup(keyboard=[[get_word('back', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_DUE
 
-def _to_the_typing_supply_comment(update):
-    text = get_word('type supply comment', update)
+def _to_the_typing_supply_comment(update, obj):
+    text = get_word('type supply comment', update) + ' ({})'.format(obj.statement.product)
     button = reply_keyboard_markup(keyboard=[[get_word('back', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_COMMENT
@@ -48,23 +48,23 @@ def get_supply_price(update, context):
     obj.save()
     bot_delete_message(update, context)
     bot_delete_message(update, context, message_id=update.message.message_id-1)
-    return _to_the_typing_supply_due(update)
+    return _to_the_typing_supply_due(update, obj)
 
 
 @is_start
 def get_supply_due(update, context):
     msg = update.message.text
+    obj = supplyservice.get_current_object_by_update(update)
     if msg == get_word('back', update):
-        return _to_the_typing_supply_price(update)
+        return _to_the_typing_supply_price(update, obj)
     bot_delete_message(update, context)
     bot_delete_message(update, context, message_id=update.message.message_id-1)
     try:
         day, month, year = msg.split('.')
         due_date = date(day=int(day), month=int(month), year=int(year))
-        obj = supplyservice.get_current_object_by_update(update)
         obj.due = due_date
         obj.save()
-        return _to_the_typing_supply_comment(update)
+        return _to_the_typing_supply_comment(update, obj)
 
     except:
         update_message_reply_text(update, get_word('incorrect date format', update))
@@ -74,10 +74,10 @@ def get_supply_due(update, context):
 @is_start
 def get_supply_comment(update, context):
     msg = update.message.text
-    if msg == get_word('back', update):
-        return _to_the_typing_supply_due(update)
-
     obj = supplyservice.get_current_object_by_update(update)
+    if msg == get_word('back', update):
+        return _to_the_typing_supply_due(update, obj)
+
     obj.comment = msg
     obj.save()
     bot_delete_message(update, context)

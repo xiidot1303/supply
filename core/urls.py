@@ -54,6 +54,7 @@ urlpatterns = [
     path('statement/list/all', statement_list_all, name='statement_list_all'),
     path('statement/supplies/<int:pk>/', statement_supplies, name='statement_supplies'),
     path('statement/accept_supply/<int:pk>/', statement_accept_supply, name='statement_accept_supply'),
+    path('statement/cancel/<int:pk>/', statement_cancel, name='statement_cancel'),
 
     # product
     path('product/list', product_list, name='product_list'),

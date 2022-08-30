@@ -71,13 +71,8 @@ def accept_supply(update, context):
         obj.save()
 
     try:
-        # send notification to Supplier
-        supplierservice.send_accepted_message_to_supplier(supply)
-        supply.status = 'conf'
-        supply.save()
-        st.status = 'end'
-        st.supplier = supply.supplier
-        st.save()
+        supplyservice.confirm_supply(supply)
+        
         bot_edit_message_text(update, context, text)
         bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
     except:

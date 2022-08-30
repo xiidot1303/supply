@@ -20,11 +20,10 @@ def statement_supplies(request, pk):
 def statement_accept_supply(request, pk):
     obj = supplyservice.get_object_by_id(pk)
     if obj.statement.status != 'end':
-        supplierservice.send_accepted_message_to_supplier(obj)
-        obj.status = 'conf'
-        obj.save()
-        statement = obj.statement
-        statement.status = 'end'
-        statement.supplier = obj.supplier
-        statement.save()
-    return redirect(statement_supplies, pk=statement.pk)
+        supplyservice.confirm_supply(obj)
+    return redirect(statement_supplies, pk=obj.statement.pk)
+
+@login_required
+def statement_cancel(request, pk):
+    statementservice.cancel_statement_by_id(pk)
+    return redirect(statement_list_all)

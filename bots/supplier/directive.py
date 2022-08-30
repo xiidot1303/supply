@@ -13,8 +13,11 @@ def to_the_typing_supply_price(update, context):
         *args, id = data.split('-')
         statement = statementservice.get_object_by_id(int(id))
         st = statement
-        if statement.status == 'end':
-            bot_answer_callback_query(update, context, get_word('statement is already accepted', update))
+        if statement.status != 'wait':
+            if statement.status == 'cancel':
+                bot_answer_callback_query(update, context, get_word('statement is cancelled', update))
+            else:
+                bot_answer_callback_query(update, context, get_word('statement is already accepted', update))
             text = get_word('new order', update)
             text = text.format(
                 id=st.id, applicant=st.user.name, phone=st.user.phone,
@@ -24,7 +27,7 @@ def to_the_typing_supply_price(update, context):
             return
         supplier = supplierservice.get_object_by_update(update)
         supplyservice.create_object(statement, supplier)
-        text = get_word('type supply price', update)
+        text = get_word('type supply price', update) + ' ({})'.format(statement.product)
         button = reply_keyboard_markup(keyboard=[[get_word('main menu', update)]])
         update_message_reply_text(update, text, reply_markup=button)
         return GET_SUPPLY_PRICE

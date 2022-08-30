@@ -1,7 +1,7 @@
 from app.models import Supply
 from bots import *
 from bots.strings import lang_dict
-from app.services import supplierservice
+from app.services import supplierservice, apiservice
 
 def create_object(statement, supplier):
     Supply.objects.create(statement=statement, supplier = supplier)
@@ -27,3 +27,18 @@ def filter_old_supplies_of_current_statement(update, supply):
 def filter_supplies_by_statement(statement):
     query = Supply.objects.filter(statement=statement).exclude(status=None)
     return query
+
+def confirm_supply(supply):
+    st = supply.statement
+    if st.status != 'end':
+        # send notification to Supplier
+        supplierservice.send_accepted_message_to_supplier(supply)
+
+        # confirmation api to 1c
+        apiservice.confirm_supply_api(supply)
+
+        supply.status = 'conf'
+        supply.save()
+        st.status = 'end'
+        st.supplier = supply.supplier
+        st.save()

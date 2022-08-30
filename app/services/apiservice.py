@@ -13,10 +13,17 @@ result = {
 
 def create_statement_api(statement):
     st = statement
+    product_id = ''
+    warehouse_id = ''
+    if st.product_obj:
+        product_id = st.product_obj.product_id
+        warehouse_id = st.product_obj.warehouse_id
     order = {
         'status': 'new',
         'id': st.pk,
         'productTitle': st.product,
+        'product_id': product_id,
+        'warehouse_id': warehouse_id,
         'amount': st.amount,
         'comment': st.comment
     }
@@ -27,6 +34,23 @@ def create_statement_api(statement):
         # print(r.content.decode())
     except:
         a = 0
+
+def cancel_statement_api(statement):
+    st = statement
+
+    order = {
+        'status': 'cancel',
+        'id': st.pk,
+    }
+    result['order'] = order
+    try:
+        if not DEBUG:
+            r = requests.post(url=url, json=result, auth=(login, password))
+        # print(r.content.decode())
+    except:
+        a = 0
+
+
 
 def add_supply_api(supply):
     st = supply.statement
@@ -39,6 +63,7 @@ def add_supply_api(supply):
     }
 
     supplier = {
+        'id': supply.supplier.id,
         'supplier': supply.supplier.name,
         'total': supply.price,
         'date': supply.due.strftime('%Y-%m-%d'),
@@ -53,4 +78,21 @@ def add_supply_api(supply):
     except:
         a = 0
 
-    
+def confirm_supply_api(supply):
+    st = supply.statement
+    result['order'] = {
+        'status': 'win',
+        'id': st.pk,
+        'winner': supply.supplier.pk,
+        'productTitle': st.product,
+        'amount': st.amount,
+        'comment': st.comment
+    }
+
+
+    try:
+        if not DEBUG:
+            r = requests.post(url=url, json=result, auth=(login, password))
+        # print(r.content.decode())
+    except:
+        a = 0
