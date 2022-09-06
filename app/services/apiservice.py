@@ -36,7 +36,6 @@ def create_statement_api(statement):
         'products': products,
     }
     result['order'] = statement
-    print(result)
     try:
         if not DEBUG:
             r = requests.post(url=url, json=result, auth=(login, password))
