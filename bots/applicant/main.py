@@ -9,8 +9,6 @@ from bots.applicant.directive import *
 from app.services import notificationservice, supplierservice, supplyservice
 def start(update, context):
     if is_group(update):
-        notificationservice.create_or_edit_group(update)
-        update_message_reply_text(update, lang_dict['added group'])
         return 
 
     if is_registered(update.message.chat.id):
@@ -90,3 +88,16 @@ def accept_supply(update, context):
         bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
     except:
         bot_answer_callback_query(update, context, 'Ошибка')
+
+
+def command_supply(update, context):
+    if is_group(update):
+        notificationservice.create_or_edit_group(update, 'supply')
+        update_message_reply_text(update, lang_dict['added group'])
+        return 
+
+def command_order(update, context):
+    if is_group(update):
+        notificationservice.create_or_edit_group(update, 'order')
+        update_message_reply_text(update, lang_dict['added group'])
+        return 

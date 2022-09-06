@@ -2,10 +2,11 @@ from app.models import Notification, Product
 from bots import *
 from bots.strings import lang_dict
 
-def create_or_edit_group(update):
+def create_or_edit_group(update, type):
     obj = Notification.objects.get_or_create(group_id=str(update.message.chat.id))[0]
     obj = Notification.objects.get(pk=obj.pk)
     obj.title = update.message.chat.title
+    obj.type = type
     obj.save()
 
 def objects_all():
@@ -39,7 +40,7 @@ def send_statement_to_groups(statement):
         
         text += '\n➖➖➖➖➖➖➖\n'
 
-    for n in Notification.objects.filter(access=True):
+    for n in Notification.objects.filter(access=True, type='order'):
         send_newsletter(applicant_bot, n.group_id, text) 
 
 def send_supply_to_groups(supply):
@@ -62,7 +63,7 @@ def send_supply_to_groups(supply):
         order_id=st.pk, products=products,
         supplier=supply.supplier.name, price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
     )
-    for n in Notification.objects.filter(access=True):
+    for n in Notification.objects.filter(access=True, type='supply'):
         i_accept = InlineKeyboardButton(text='✅ Принимать', callback_data='accept_supply-{}'.format(supply.pk))
         button = InlineKeyboardMarkup([[i_accept]])
         send_newsletter(applicant_bot, n.group_id, text, reply_markup=button)

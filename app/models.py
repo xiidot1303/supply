@@ -93,4 +93,14 @@ class Product(models.Model):
 class Notification(models.Model):
     group_id = models.CharField(null=True, blank=True, max_length=16)
     title = models.CharField(null=True, blank=True, max_length=255)
+    type = models.CharField(
+        null=True, 
+        blank=True, 
+        max_length=16, 
+        choices=(
+            ('order', 'order'),
+            ('supply', 'supply'),
+
+        )
+        )
     access = models.BooleanField(null=True, blank=True, default=False)

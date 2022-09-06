@@ -92,6 +92,8 @@ search_handler = ConversationHandler(
 
 search_handler = MessageHandler(Filters.text(lang_dict['search']), main.search)
 
+dp.add_handler(CommandHandler('order', main.command_order))
+dp.add_handler(CommandHandler('supply', main.command_supply))
 dp.add_handler(InlineQueryHandler(search.get_string)),
 dp.add_handler(search_handler)
 dp.add_handler(statement_handler)
