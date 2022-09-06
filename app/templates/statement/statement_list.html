@@ -15,9 +15,8 @@
          <th>№</th>
          <th>Имя</th>
          <th>Дата</th>
-         <th>Товар</th>
-         <th>Количество</th>
-         <th>Комментарий</th>
+         <th>Детали</th>
+         
          <th>Действия</th>
 
        </tr>
@@ -28,33 +27,80 @@
          <tr style="background-color: rgba(7, 254, 7, 0.397);">
          {% elif l.status == 'cancel' %}
          <tr style="background-color: rgba(254, 7, 7, 0.326);">
-         {% elif l.product_obj %}
-         <tr style="background-color: rgba(254, 250, 7, 0.397);">
-
         {% else %}
          <tr>
          {% endif %}
             <td>{{ forloop.counter }}</td>
             <td>{{ l.user.name }}</td>
             <td>{{ l.date|date:"d/m/Y H:i" }}</td>
-            <td>{{ l.product }}</td>
-            <td>{{ l.amount }}</td>
             <td>
-               <button type="button" class="btn iq-bg-success mt-2" data-container="body" data-toggle="popover"
-                data-placement="right" data-content="{{ l.comment }}">
-                  {{ l.comment|cuttext }}
+               <!-- Details start -->
+               <button type="button" class="btn btn-info mt-2 mr-2" data-toggle="modal" data-target=".modal-{{ forloop.counter }}">
+                  <i class="fas fa-table"></i>
                </button>
+               <div class="modal fade modal-{{ forloop.counter }}" tabindex="-1" role="dialog"  aria-hidden="true">
+                  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title">Товары</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                           <table class="table">
+                              <thead>
+                                 <tr>
+                                    <th>Товар</th>
+                                    <th>Количество</th>
+                                    <th>Комментарий</th>
+                                    <th></th>
+                                 </tr>
+                              </thead>
+                              <tbody>
+                                 {% for order in l.orders.all %}
+                                 {% if order.product_obj %}
+                                 <tr style="background-color: rgba(254, 250, 7, 0.397);">
+                                 {% else %}
+                                 <tr>
+                                 {% endif %}
+                                    <td>{{ order.product }}</td>
+                                    <td>{{ order.amount }}</td>
+                                    <td>
+                                       <button type="button" class="btn iq-bg-success mt-2" data-container="body" data-toggle="popover"
+                                        data-placement="right" data-content="{{ order.comment }}">
+                                          <!-- {{ order.comment|cuttext }} -->
+                                          {{ order.comment|cuttext }}
+                                       </button>
+                                    </td>
+                                    <td>
+                                       {% if order.product_obj %}
+                                       <a target="_blank" href="{% url 'product_update' order.product_obj.pk %}" class="mt-2 btn btn-primary" style="background-color: rgb(7, 36, 227);" role="button"  data-toggle="tooltip" title="Товар"><i class="fas fa-eye"></i></a>
+                                       <div class="tooltip bs-tooltip-top" role="tooltip">
+                                          <div class="arrow"></div>
+                                          <div class="tooltip-inner">Товар</div>
+                                       </div>
+                                       
+                                       {% endif %}
+                                    </td>
+                                 </tr>
+                                 {% endfor %}
+                              </tbody>
+
+                           </table>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>   
+               <!-- Details end -->
             </td>
 
             <td>
 
                {% if l.status == 'cancel' %}
-               {% elif l.product_obj %}
-               <a target="_blank" href="{% url 'product_update' l.product_obj.pk %}" class="mt-2 btn btn-primary" style="background-color: rgb(7, 36, 227);" role="button"  data-toggle="tooltip" title="Товар"><i class="fas fa-eye"></i></a>
-               <div class="tooltip bs-tooltip-top" role="tooltip">
-                  <div class="arrow"></div>
-                  <div class="tooltip-inner">Товар</div>
-               </div>
                {% else %}
                <a href="{% url 'statement_supplies' l.pk %}" class="mt-2 btn btn-primary" style="background-color: rgb(202, 196, 0);" role="button"  data-toggle="tooltip" title="Снабженцы"><i class="fas fa-eye"></i></a>
                <div class="tooltip bs-tooltip-top" role="tooltip">
@@ -62,6 +108,7 @@
                   <div class="tooltip-inner">Снабженцы</div>
                </div>
                {% endif %}
+
                {% if l.status == 'wait' %}
                <a href="{% url 'statement_cancel' l.pk %}" onclick="return confirm(&#39;Вы уверены?&#39;)" class="mt-2 btn btn-primary" style="background-color: rgb(231, 0, 0);" role="button"  data-toggle="tooltip" title="Отменить"><i class="fas fa-times"></i></a>
                <div class="tooltip bs-tooltip-top" role="tooltip">
