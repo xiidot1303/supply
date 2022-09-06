@@ -9,7 +9,10 @@ class SupplierAdmin(admin.ModelAdmin):
 
 
 class StatementAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'product', 'type', 'amount', 'status']
+    list_display = ['pk', 'user', 'status']
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['product', 'amount', 'comment']
 
 class SupplyAdmin(admin.ModelAdmin):
     list_display = ['pk', 'statement', 'supplier', 'price', 'status']
@@ -24,6 +27,7 @@ class NotificationAdmin(admin.ModelAdmin):
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Statement, StatementAdmin)
+admin.site.register(Order, OrderAdmin)
 admin.site.register(Supply, SupplyAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Notification, NotificationAdmin)

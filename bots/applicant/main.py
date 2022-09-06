@@ -35,6 +35,7 @@ def settings(update, context):
 
 
 def statement(update, context):
+    delete_unfinished_statements(update)
     return to_the_typing_product_name(update, context)
 
 def search(update, context):
@@ -52,8 +53,20 @@ def accept_supply(update, context):
     st = supply.statement
     
     text = lang_dict['notify new supply']
+    products = ''
+    for order in st.orders.all():
+        if order.product_obj:
+            continue
+        order_text = lang_dict['order details'][1]
+        order_text = order_text.format(
+            title = order.product, 
+            amount = order.amount,
+            product_comment = order.comment
+        )
+        products += order_text + '\n\n'
+        
     text = text.format(
-        order_id=st.pk, title=st.product, amount=st.amount, product_comment=st.comment,
+        order_id=st.pk, products=products,
         supplier=supply.supplier.name, price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
     )
 

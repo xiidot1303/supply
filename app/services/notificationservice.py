@@ -18,28 +18,51 @@ def get_object_by_pk(pk):
 def send_statement_to_groups(statement):
     st = statement
     text = lang_dict['new order'][1]
+    text = text.format(
+        id=st.id, applicant=st.user.name, phone=st.user.phone,
+    )
+    text += '\n➖➖➖➖➖➖➖\n'
     
-    product_obj = Product.objects.filter(title__icontains=statement.product)
-    if product_obj:
-        text += '📑 В складе\n'
-    for p in product_obj:
-        text += f'Название: {p.title}\nID: {p.product_id}\nКоличество: {p.amount}\nСклад: {p.warehouse}\n\n'
-    
-    for n in Notification.objects.filter(access=True):
-        text = text.format(
-            id=st.id, applicant=st.user.name, phone=st.user.phone,
-            title=st.product, amount=st.amount, comment=st.comment
+    for order in statement.orders.all():
+        order_text = lang_dict['order details'][1]
+        order_text = order_text.format(
+            title = order.product, 
+            amount = order.amount,
+            product_comment = order.comment
         )
+        text += order_text
+
+        product_obj = order.product_obj
+        if product_obj:
+            text += '\n\n📑 В складе\n'
+            text += f'Название: {product_obj.title}\nID: {product_obj.product_id}\nКоличество: {product_obj.amount}\nСклад: {product_obj.warehouse}\n\n'
+        
+        text += '\n➖➖➖➖➖➖➖\n'
+
+    for n in Notification.objects.filter(access=True):
         send_newsletter(applicant_bot, n.group_id, text) 
 
 def send_supply_to_groups(supply):
     st = supply.statement
-    text = lang_dict['notify new supply']
-    for n in Notification.objects.filter(access=True):
-        text = text.format(
-            order_id=st.pk, title=st.product, amount=st.amount, product_comment=st.comment,
-            supplier=supply.supplier.name, price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
+    products = ''
+    for order in st.orders.all():
+        if order.product_obj:
+            continue
+        order_text = lang_dict['order details'][1]
+        order_text = order_text.format(
+            title = order.product, 
+            amount = order.amount,
+            product_comment = order.comment
         )
+        products += order_text + '\n\n'
+        
+    
+    text = lang_dict['notify new supply']
+    text = text.format(
+        order_id=st.pk, products=products,
+        supplier=supply.supplier.name, price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
+    )
+    for n in Notification.objects.filter(access=True):
         i_accept = InlineKeyboardButton(text='✅ Принимать', callback_data='accept_supply-{}'.format(supply.pk))
         button = InlineKeyboardMarkup([[i_accept]])
         send_newsletter(applicant_bot, n.group_id, text, reply_markup=button)

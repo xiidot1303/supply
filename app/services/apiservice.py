@@ -13,21 +13,30 @@ result = {
 
 def create_statement_api(statement):
     st = statement
-    product_id = ''
-    warehouse_id = ''
-    if st.product_obj:
-        product_id = st.product_obj.product_id
-        warehouse_id = st.product_obj.warehouse_id
-    order = {
+    products = []
+    for order in st.orders.all():
+        product_id = ''
+        warehouse_id = ''
+        if order.product_obj:
+            product_id = order.product_obj.product_id
+            warehouse_id = order.product_obj.warehouse_id
+        products.append(
+            {
+                'product_id': product_id,
+                'productTitle': order.product,
+                'warehouse_id': warehouse_id,
+                'amount': order.amount,
+                'comment': order.comment
+            }
+        )
+
+    statement = {
         'status': 'new',
         'id': st.pk,
-        'productTitle': st.product,
-        'product_id': product_id,
-        'warehouse_id': warehouse_id,
-        'amount': st.amount,
-        'comment': st.comment
+        'products': products,
     }
-    result['order'] = order
+    result['order'] = statement
+    print(result)
     try:
         if not DEBUG:
             r = requests.post(url=url, json=result, auth=(login, password))
@@ -57,9 +66,6 @@ def add_supply_api(supply):
     result['order'] = {
         'status': 'edit',
         'id': st.pk,
-        'productTitle': st.product,
-        'amount': st.amount,
-        'comment': st.comment
     }
 
     supplier = {
@@ -84,9 +90,6 @@ def confirm_supply_api(supply):
         'status': 'win',
         'id': st.pk,
         'winner': supply.supplier.pk,
-        'productTitle': st.product,
-        'amount': st.amount,
-        'comment': st.comment
     }
 
 

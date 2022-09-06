@@ -30,16 +30,20 @@ class Supplier(models.Model):
         except:
             return super().__str__()
 
+class Order(models.Model):
+    product = models.CharField(null=True, blank=True, max_length=255)
+    type = models.CharField(null=True, blank=True, max_length=255)
+    amount = models.IntegerField(null=True, blank=True)
+    comment = models.TextField(null=True, blank=True, max_length=1024)
+    product_obj = models.ForeignKey('Product', null=True, blank=True, on_delete=models.PROTECT)
+
 
 class Statement(models.Model):
     user = models.ForeignKey(
         'app.Applicant', null=True, blank=True, on_delete=models.PROTECT
     )
     date = models.DateTimeField(null=True, blank=True, max_length=64)
-    product = models.CharField(null=True, blank=True, max_length=255)
-    type = models.CharField(null=True, blank=True, max_length=255)
-    amount = models.IntegerField(null=True, blank=True)
-    comment = models.TextField(null=True, blank=True, max_length=1024)
+    orders = models.ManyToManyField('app.Order', blank=True)
     status = models.CharField(
         null=True,
         blank=True,
@@ -50,7 +54,6 @@ class Statement(models.Model):
             ("cancel", "cancelled"),
         ),
     )
-    product_obj = models.ForeignKey('Product', null=True, blank=True, on_delete=models.PROTECT)
     supplier = models.ForeignKey('Supplier', null=True, blank=True, on_delete=models.PROTECT)
 
 class Supply(models.Model): # offers of Suppliers

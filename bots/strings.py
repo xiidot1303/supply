@@ -53,7 +53,7 @@ lang_dict = {
         """Ваше имя успешно изменено!""",
     ],
 
-    "start statement": ["Ariza yuborish 📝", "Подавать заявление 📝"],
+    "start statement": ["Buyurtma berish 📝", "Подавать заявление 📝"],
 
     "type product name": [
         "Mahsulot nomini kiriting", 
@@ -128,9 +128,18 @@ lang_dict = {
         """<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
     ],
 
+    "order": ["Buyurtma", "Заказ"],
+
     "statement details": [
-        "<b>📄 Buyurtma № #n_{order_id}</b>\nTovar: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{product_comment}</i>",
-        "<b>📄 Заказ № #n_{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>"
+        "<b>📄 Buyurtma № #n_{order_id}</b>",
+        "<b>📄 Заказ № #n_{order_id}</b>",
+    ],
+
+    "your order": ["📄 Sizning buyurtmangiz", "📄 Ваше заявление"],
+
+    "order details": [
+        "Tovar: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{product_comment}</i>",
+        "Товар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>"
         ],
 
     "applicant details": [
@@ -140,10 +149,10 @@ lang_dict = {
 
     "new order": [
         "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\n\n" +
-        "ℹ️ <b>Tovar haqida ma'lumotlar</b>\nNom: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{comment}</i>\n\n", 
+        "ℹ️ <b>Tovar haqida ma'lumotlar</b>\n", 
         
         "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\n\n" +
-        "ℹ️ <b>Информация о товаре</b>\nНазвание: {title}\nКоличество: {amount}\nКомментарий: <i>{comment}</i>\n\n", 
+        "ℹ️ <b>Информация о товаре</b>\n", 
         
         ],
 
@@ -153,11 +162,14 @@ lang_dict = {
 
     "statement is cancelled": ["So'rov bekor qilingan", "Заявление отменено"],
 
-    "": ["", ""],
+    "end statement or add more": [
+        "💡 Siz buyurtmani yakunlashingiz yoki yana boshqa tovarlar qo'shishingiz mumkin", 
+        "💡 Вы можете завершить заказ или еще добавить больше товаров"
+        ],
 
-    "": ["", ""],
+    "add product": ["➕ Tovar qo'shish", "➕ Добавить товар"],
 
-    "": ["", ""],
+    "end statement": ["☑️ Buyurtmani yakunlash", "☑️ Завершить заявление"],
 
     "": ["", ""],
 
@@ -166,6 +178,6 @@ lang_dict = {
 }
 
 text = '📨 <b>Новая условия от снабженца</b>\n\n'
-text += '<b>📄 Заказ № #n_{order_id}</b>\nТовар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>\n\n➖ ➖ ➖ ➖ ➖\n\n'
+text += '<b>📄 Заказ № #n_{order_id}</b>\n\n{products}➖ ➖ ➖ ➖ ➖\n\n'
 text += '<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарий: <i>{comment}</i>'
 lang_dict['notify new supply'] = text

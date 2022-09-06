@@ -21,13 +21,25 @@ def to_the_typing_supply_price(update, context):
             text = get_word('new order', update)
             text = text.format(
                 id=st.id, applicant=st.user.name, phone=st.user.phone,
-                title=st.product, amount=st.amount, comment=st.comment
             )
+            text += '\n➖➖➖➖➖➖➖\n'
+            for order in statement.orders.all():
+                if order.product_obj:
+                    continue
+                order_text = get_word('order details', update)
+                order_text = order_text.format(
+                    title = order.product, 
+                    amount = order.amount,
+                    product_comment = order.comment
+                )
+                text += order_text
+
+                text += '\n➖➖➖➖➖➖➖\n'
             bot_edit_message_text(update, context, text)
             return
         supplier = supplierservice.get_object_by_update(update)
         supplyservice.create_object(statement, supplier)
-        text = get_word('type supply price', update) + ' ({})'.format(statement.product)
+        text = get_word('type supply price', update) + ' ({} № #n_{})'.format(get_word('order', update), statement.pk)
         button = reply_keyboard_markup(keyboard=[[get_word('main menu', update)]])
         update_message_reply_text(update, text, reply_markup=button)
         return GET_SUPPLY_PRICE

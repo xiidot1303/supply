@@ -3,7 +3,6 @@ from . import *
 from app.services import statementservice
 
 def to_the_typing_product_name(update, context):
-    delete_unfinished_statements(update)
     text = get_word('type product name', update)
     # send message with keyboard buttons
     buttons = reply_keyboard_markup(keyboard=[[get_word('back', update)]])

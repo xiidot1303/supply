@@ -4,19 +4,19 @@ from app.services import supplyservice, apiservice, notificationservice
 from datetime import date, datetime
 
 def _to_the_typing_supply_price(update, obj):
-    text = get_word('type supply price', update) + ' ({})'.format(obj.statement.product)
+    text = get_word('type supply price', update) + ' ({} № #n_{})'.format(get_word('order', update), obj.statement.pk)
     button = reply_keyboard_markup(keyboard=[[get_word('main menu', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_PRICE
 
 def _to_the_typing_supply_due(update, obj):
-    text = get_word('type supply due', update) + ' ({})'.format(obj.statement.product)
+    text = get_word('type supply due', update) + ' ({} № #n_{})'.format(get_word('order', update), obj.statement.pk)
     button = reply_keyboard_markup(keyboard=[[get_word('back', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_DUE
 
 def _to_the_typing_supply_comment(update, obj):
-    text = get_word('type supply comment', update) + ' ({})'.format(obj.statement.product)
+    text = get_word('type supply comment', update) + ' ({} № #n_{})'.format(get_word('order', update), obj.statement.pk)
     button = reply_keyboard_markup(keyboard=[[get_word('back', update)]])
     update_message_reply_text(update, text, button)
     return GET_SUPPLY_COMMENT

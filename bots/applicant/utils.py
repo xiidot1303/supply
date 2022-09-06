@@ -88,5 +88,8 @@ def check_username(update):
         user.save()
 
 def delete_unfinished_statements(update):
-    [obj.delete() for obj in statementservice.filter_current_objects_by_update(update)]
+    for obj in statementservice.filter_unfinished_objects_by_update(update):
+        for order in obj.orders.all():
+            order.delete()
+        obj.delete() 
 

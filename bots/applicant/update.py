@@ -67,9 +67,9 @@ statement_handler = ConversationHandler(
     entry_points=[MessageHandler(Filters.text(lang_dict['start statement']), main.statement)],
     states={
         GET_PRODUCT_NAME: [MessageHandler(Filters.text, statement.get_product_name)],
-        GET_PRODUCT_TYPE: [MessageHandler(Filters.text, statement.get_product_type)],
         GET_PRODUCT_AMOUNT: [MessageHandler(Filters.text, statement.get_product_amount)],
         GET_PRODUCT_COMMENT: [MessageHandler(Filters.text, statement.get_product_comment)],
+        GET_ACTION: [MessageHandler(Filters.text, statement.get_action)],
     },
     fallbacks=[],
     name='statement',
