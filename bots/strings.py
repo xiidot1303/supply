@@ -93,13 +93,13 @@ lang_dict = {
 
     "no access": ["Ruxsat yo'q ⚔️", "Нет доступа ⚔️"],
 
-    "supply": ["ta'minlash 📌", "снабжать 📌"],
+    "supply": ["Ta'minlash 📌", "Снабжать 📌"],
 
     "product type": ["Tovar turi", "Вид товара"],
 
     "storage": ["Ombor", "Склад"],
 
-    "type supply price": ["Mahsulot narxini kiriting", "Введите цену товара"],
+    "type supply price": ["Buyurtma narxini kiriting", "Введите цену заявки"],
 
     "type supply due": [
         "Qachon ta'minlay olasiz?\n\n<i>Sana: 01.01.2022 formatida</i>", 
