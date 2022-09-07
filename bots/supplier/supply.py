@@ -61,6 +61,7 @@ def get_supply_due(update, context):
     bot_delete_message(update, context, message_id=update.message.message_id-1)
     try:
         day, month, year = msg.split('.')
+        year = '20'+year
         due_date = date(day=int(day), month=int(month), year=int(year))
         obj.due = due_date
         obj.save()

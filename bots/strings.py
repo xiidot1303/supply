@@ -102,13 +102,13 @@ lang_dict = {
     "type supply price": ["Buyurtma narxini kiriting", "Введите цену заявки"],
 
     "type supply due": [
-        "Qachon ta'minlay olasiz?\n\n<i>Sana: 01.01.2022 formatida</i>", 
-        "Когда вы поставите?\n\n<i>Дата: в формате 01.01.2022</i>" 
+        "Qachon ta'minlay olasiz?\n\n<i>Sana: 01.01.22 formatida</i>", 
+        "Когда вы поставите?\n\n<i>Дата: в формате 01.01.22</i>" 
         ],
     
     "incorrect date format": [
-        "Sana formati 01.01.2022 ko'rinishda bo'lishi kerak", 
-        "Формат даты должен быть 01.01.2022"
+        "Sana formati 01.01.22 ko'rinishda bo'lishi kerak", 
+        "Формат даты должен быть 01.01.22"
         ],
 
     "type supply comment": ["Qo'shimcha tafsilotlar", "Комментарии"],
