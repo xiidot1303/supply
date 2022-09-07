@@ -15,6 +15,7 @@
          <th>№</th>
          <th>Имя</th>
          <th>Дата</th>
+         <th>Объект</th>
          <th>Детали</th>
          
          <th>Действия</th>
@@ -33,6 +34,7 @@
             <td>{{ forloop.counter }}</td>
             <td>{{ l.user.name }}</td>
             <td>{{ l.date|date:"d/m/Y H:i" }}</td>
+            <td>{{ l.object.title }}</td>
             <td>
                <!-- Details start -->
                <button type="button" class="btn btn-info mt-2 mr-2" data-toggle="modal" data-target=".modal-{{ forloop.counter }}">

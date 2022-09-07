@@ -44,6 +44,7 @@ class Statement(models.Model):
     )
     date = models.DateTimeField(null=True, blank=True, max_length=64)
     orders = models.ManyToManyField('app.Order', blank=True)
+    object = models.ForeignKey('app.Object', null=True, blank=True, on_delete=models.PROTECT)
     status = models.CharField(
         null=True,
         blank=True,
@@ -104,3 +105,7 @@ class Notification(models.Model):
         )
         )
     access = models.BooleanField(null=True, blank=True, default=False)
+
+class Object(models.Model):
+    title = models.CharField(null=True, blank=True, max_length=255)
+    place = models.CharField(null=True, blank=True, max_length=255)

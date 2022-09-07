@@ -20,7 +20,7 @@ def send_statement_to_groups(statement):
     st = statement
     text = lang_dict['new order'][1]
     text = text.format(
-        id=st.id, applicant=st.user.name, phone=st.user.phone,
+        id=st.id, applicant=st.user.name, phone=st.user.phone, object=st.object.title
     )
     text += '\n➖➖➖➖➖➖➖\n'
     

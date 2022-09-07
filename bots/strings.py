@@ -143,15 +143,15 @@ lang_dict = {
         ],
 
     "applicant details": [
-        "Buyurtmachi: {applicant}\nTelefon: {phone}",
-        "Заявитель: {applicant}\nНомер телефона: {phone}",
+        "Buyurtmachi: {applicant}\nTelefon: {phone}\nObyekt: {object}",
+        "Заявитель: {applicant}\nНомер телефона: {phone}\nОбъект: {object}",
     ],
 
     "new order": [
-        "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\n\n" +
+        "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\nObyekt: {object}\n\n" +
         "ℹ️ <b>Tovar haqida ma'lumotlar</b>\n", 
         
-        "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\n\n" +
+        "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\nОбъект: {object}\n\n" +
         "ℹ️ <b>Информация о товаре</b>\n", 
         
         ],
@@ -162,14 +162,36 @@ lang_dict = {
 
     "statement is cancelled": ["So'rov bekor qilingan", "Заявление отменено"],
 
-    "end statement or add more": [
-        "💡 Siz buyurtmani yakunlashingiz yoki yana boshqa tovarlar qo'shishingiz mumkin", 
-        "💡 Вы можете завершить заказ или еще добавить больше товаров"
+    "continue or add more": [
+        "💡 Siz davom etishingiz yoki yana boshqa tovarlar qo'shishingiz mumkin", 
+        "💡 Вы можете продолжить или еще добавить больше товаров"
         ],
 
     "add product": ["➕ Tovar qo'shish", "➕ Добавить товар"],
 
+    "continue": ["➡️ Davom etish", "➡️ Продолжить"],
+
     "end statement": ["☑️ Buyurtmani yakunlash", "☑️ Завершить заявление"],
+
+    "type object": [
+        "Qaysi obyekt uchun buyurtma qilyapsiz?", 
+        "Для какого объекта вы заказываете?"
+        ],
+
+    "choose specified objects": [
+        "Berilgan obyektlar ichidan tanlang", 
+        "Выберите указанные объекты"
+        ],
+
+    "object": ["📍 Obyekt", "📍 Объект"],
+
+    "": ["", ""],
+
+    "": ["", ""],
+
+    "": ["", ""],
+
+    "": ["", ""],
 
     "": ["", ""],
 

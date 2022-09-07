@@ -48,7 +48,10 @@ def make_button_settings(update, context):
         reply_markup=ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True),
     )
 
-
+def get_objects_reply_markup():
+    keyboard = [[obj.title] for obj in Object.objects.all()]
+    markup = reply_keyboard_markup(keyboard)
+    return markup
 
 
 def is_registered(id):

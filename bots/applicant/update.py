@@ -70,6 +70,8 @@ statement_handler = ConversationHandler(
         GET_PRODUCT_AMOUNT: [MessageHandler(Filters.text, statement.get_product_amount)],
         GET_PRODUCT_COMMENT: [MessageHandler(Filters.text, statement.get_product_comment)],
         GET_ACTION: [MessageHandler(Filters.text, statement.get_action)],
+        GET_OBJECT: [MessageHandler(Filters.text, statement.get_object)],
+        FINISH_STATEMENT: [MessageHandler(Filters.text, statement.finish_statement)],
     },
     fallbacks=[],
     name='statement',

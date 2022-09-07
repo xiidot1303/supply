@@ -24,6 +24,9 @@ class ProductAdmin(admin.ModelAdmin):
 class NotificationAdmin(admin.ModelAdmin):
     list_display = ['group_id']
 
+class  ObjectAdmin(admin.ModelAdmin):
+    list_display = ['title']
+
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Statement, StatementAdmin)
@@ -31,3 +34,4 @@ admin.site.register(Order, OrderAdmin)
 admin.site.register(Supply, SupplyAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Notification, NotificationAdmin)
+admin.site.register(Object, ObjectAdmin)

@@ -28,7 +28,7 @@ def send_statement_to_suppliers(statement):
     for s in Supplier.objects.filter(access=True).exclude(phone=None):
         text = get_word('new order', chat_id=s.user_id)
         text = text.format(
-            id=st.id, applicant=st.user.name, phone=st.user.phone,
+            id=st.id, applicant=st.user.name, phone=st.user.phone, object=st.object.title
         )
         text += '\n➖➖➖➖➖➖➖\n'
 
@@ -80,7 +80,7 @@ def send_accepted_message_to_supplier(supply):
         ).replace('\t', '')
     text = text.format(
         order_id=st.pk, products = products,
-        applicant=st.user.name, phone=st.user.phone,
+        applicant=st.user.name, phone=st.user.phone, object=st.object.title,
         supplier=supply.supplier.name, price=supply.price, 
         due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
         )
