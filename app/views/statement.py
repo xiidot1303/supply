@@ -5,7 +5,7 @@ from app.services import statementservice, supplyservice, supplierservice
 
 @login_required
 def statement_list_all(request):
-    sts = Statement.objects.filter().order_by('-date')
+    sts = Statement.objects.filter().exclude(status=None).order_by('-date')
     context = {'list': sts}
     return render(request, 'statement/statement_list.html', context)
 
