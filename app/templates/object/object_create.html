@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Редактирование товара
+Добавить Объект
 {% endblock %}
 
 {% block main %}
@@ -13,7 +13,7 @@
     <div class="row">
     {% for f in form %}
 
-        {% if forloop.counter0 == 3 or forloop.counter0 == 3%}
+        {% if forloop.counter0 == 2 %}
         </div>
         <div class="row">
         {% else %}
@@ -37,7 +37,7 @@
     {% endfor %}
     </div>
     <div style="text-align: center;">
-        <!-- <button type="submit" class="btn btn-primary">Сохранять</button> -->
+        <button type="submit" class="btn btn-primary">Сохранять</button>
     </div>
 
 </form>

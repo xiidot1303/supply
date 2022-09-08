@@ -33,3 +33,17 @@ class ProductForm(ModelForm):
         }
 
     field_order = ['product_id', 'title', 'amount', 'warehouse', 'warehouse_id', 'type', 'type_id']
+
+class ObjectForm(ModelForm):
+    class Meta:
+        model = Object
+        fields = {'title'}
+        labels = {
+            'title': 'Название'
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={"class": "form-control"}), 
+        }
+
+    field_order = ['title']

@@ -32,7 +32,7 @@ from app.views.settings import *
 from app.views.product import *
 from app.views.supplier import *
 from app.views.notification import *
-
+from app.views.object import *
 
 urlpatterns = [
     # main
@@ -70,6 +70,12 @@ urlpatterns = [
     # notification
     path('notification/list', notification_list, name='notification_list'),
     path('notification/change_status/<int:pk>/<str:status>/', notification_change_status, name='notification_change_status'),
+
+    # object
+    path('object/list', object_list, name='object_list'),
+    path('object/create', ObjectCreateView.as_view(), name='object_create'),
+    path('object/edit/<int:pk>/', ObjectEditView.as_view(), name='object_update'),
+    path('object/delete/<int:pk>/', object_delete, name='object_delete'),
 
 
 

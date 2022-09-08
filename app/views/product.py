@@ -3,7 +3,7 @@ from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.models import *
-from app.forms import *
+from app.forms import ProductForm
 
 @login_required
 def product_list(request):
