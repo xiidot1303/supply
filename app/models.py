@@ -50,9 +50,11 @@ class Statement(models.Model):
         blank=True,
         max_length=16,
         choices=(
-            ("wait", "waiting"),
-            ("end", "end"),
-            ("cancel", "cancelled"),
+            ("wait", "waiting"), # after finishing statement by applicant
+            ("conf", "confirmed"), # after confirming by finance controller
+            ("end", "end"), # after choosing supplier
+            ("supp", "supplied"), # after applicant confirming that supplier supplied products
+            ("cancel", "cancelled"), # cancelled by controller
         ),
     )
     supplier = models.ForeignKey('Supplier', null=True, blank=True, on_delete=models.PROTECT)

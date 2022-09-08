@@ -6,7 +6,12 @@ from . import *
 from bots import *
 import time
 from bots.applicant.directive import *
-from app.services import notificationservice, supplierservice, supplyservice
+from app.services import (
+    notificationservice, 
+    supplierservice, 
+    supplyservice, 
+    stringservice
+    )
 def start(update, context):
     if is_group(update):
         return 
@@ -50,31 +55,13 @@ def accept_supply(update, context):
     supply = supplyservice.get_object_by_id(int(id))
     st = supply.statement
     
-    text = lang_dict['notify new supply']
-    products = ''
-    for order in st.orders.all():
-        if order.product_obj:
-            continue
-        order_text = lang_dict['order details'][1]
-        order_text = order_text.format(
-            title = order.product, 
-            amount = order.amount,
-            product_comment = order.comment
-        )
-        products += order_text + '\n\n'
-        
-    text = text.format(
-        order_id=st.pk, products=products,
-        supplier=supply.supplier.name, price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
-    )
+    text = stringservice.supply_details_for_notification(supply)
 
     # check, that statement is already ended
     if st.status == 'end':
         bot_answer_callback_query(update, context, 'Это заявление уже принято')
         bot_edit_message_text(update, context, text)
         return
-    
-
 
     # change status of supplies
     for obj in supplyservice.filter_supplies_by_statement(st):
@@ -83,7 +70,6 @@ def accept_supply(update, context):
 
     try:
         supplyservice.confirm_supply(supply)
-        
         bot_edit_message_text(update, context, text)
         bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
     except:
