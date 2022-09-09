@@ -33,7 +33,8 @@ def bot_send_message(update, context, text, reply_markup=None):
     message = bot.send_message(
         update.message.chat.id, 
         text,
-        reply_markup=reply_markup
+        reply_markup=reply_markup,
+        parse_mode = ParseMode.HTML
         )
     return message
 

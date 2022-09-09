@@ -45,6 +45,9 @@ def statement(update, context):
 def search(update, context):
     return to_the_searching(update, context)
 
+def my_statements(update, context):
+    return to_the_statements_list(update, context)
+
 def accept(update, context):
     update = update.callback_query
     data = str(update.data)

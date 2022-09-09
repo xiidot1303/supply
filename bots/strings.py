@@ -200,7 +200,24 @@ lang_dict = {
         "✅ Ваше заявление принято поставщиком"
         ],
 
-    "": ["", ""],
+    "my statements": ["Mening buyurtmalarim 📄", "Мои заявления 📄"],
+
+    "status": ["Status", "Статус"],
+
+    "does not confirmed": [
+        "⏳ Finans kontroller tomonidan tasdiqlanmagan", 
+        "⏳ Не подтверждено финансовым контролером"
+        ],
+
+    "in tender": ["♻️ Tenderda", "♻️ В тендере"],
+
+    "will be supplied": ["☑️ Ta'minotchi qabul qilgan", "☑️ Принято поставщиком"],
+
+    "got": ["📥 Qabul qildim", "📥 Получил"],
+
+    "success": ["Muvaffaqiyatli!", "Успешно!"],
+
+    "your statements": ["Sizning buyurtmalaringiz", "Ваши заявления"],
 
     "": ["", ""],
 

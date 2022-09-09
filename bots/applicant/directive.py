@@ -1,6 +1,6 @@
 from bots import *
 from . import *
-from app.services import statementservice
+from app.services import statementservice, stringservice, supplyservice
 
 def to_the_typing_product_name(update, context):
     text = get_word('type product name', update)
@@ -26,3 +26,22 @@ def to_the_searching(update, context):
     # bot_delete_message(update, context, message.message_id)
     update_message_reply_text(update, text, reply_markup=reply_markup)
     # return SEARCHING
+
+def to_the_statements_list(update, context):
+    statements = statementservice.filter_active_statements_by_update(update)
+    update_message_reply_text(
+        update, 
+        get_word('your statements', update), 
+        reply_keyboard_markup([[get_word('main menu', update)]])
+        )
+    for st in statements:
+        supply = None
+        markup = None
+        if st.status == 'end':
+            supply = supplyservice.get_confirmed_supply_of_statement(st)
+            i_got = InlineKeyboardButton(text=get_word('got', update), callback_data='supplied_statement-{}'.format(st.pk))
+            markup = InlineKeyboardMarkup([[i_got]])
+        text = stringservice.statement_info_for_applicant(st, supply)
+        bot_send_message(update, context, text, markup)
+
+    return CLICK_STATEMENT

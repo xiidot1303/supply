@@ -13,6 +13,10 @@ def get_current_object_by_update(update):
     obj = Supply.objects.get(date=None, supplier__user_id=update.message.chat.id)
     return obj
 
+def get_confirmed_supply_of_statement(statement):
+    obj = Supply.objects.get(statement=statement, status='conf')
+    return obj
+
 def filter_current_objects_by_update(update):
     supplier = supplierservice.get_object_by_update(update)
     objects = Supply.objects.filter(supplier=supplier, date=None)

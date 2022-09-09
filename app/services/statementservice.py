@@ -1,5 +1,6 @@
 from app.models import Statement, Order
 from app.services import applicantservice, apiservice, supplierservice
+from django.db.models import Q
 
 def create_and_get_object_by_update(update):
     user = applicantservice.get_object_by_user_id(update.message.chat.id)
@@ -23,6 +24,11 @@ def get_current_object_by_update(update):
 def filter_unfinished_objects_by_update(update):
     user = applicantservice.get_object_by_update(update)
     objects = Statement.objects.filter(status=None, user=user)
+    return objects
+
+def filter_active_statements_by_update(update):
+    user = applicantservice.get_object_by_update(update)
+    objects = Statement.objects.filter(Q(user=user) & ~Q(status='supp') & ~Q(status='cancel'))
     return objects
 
 def create_order_and_get():

@@ -15,7 +15,7 @@ from config import APPLICANT_BOT_API_TOKEN, DEBUG
 from bots.strings import lang_dict
 from bots.applicant.conversationList import *
 from bots.applicant import (
-    main, login, settings, statement, search
+    main, login, settings, statement, search, my_statements
 )
 
 persistence = PicklePersistence(filename="persistencebot")
@@ -92,11 +92,26 @@ search_handler = ConversationHandler(
     persistent=True,
 )
 
+my_statements_handler = ConversationHandler(
+    entry_points=[MessageHandler(Filters.text(lang_dict['my statements']), main.my_statements)],
+    states={
+        CLICK_STATEMENT: [
+            CommandHandler('start', my_statements.click_statement),
+            MessageHandler(Filters.text(lang_dict['main menu']), my_statements.click_statement),
+            CallbackQueryHandler(my_statements.click_statement)
+        ]
+    },
+    fallbacks=[],
+    name='my_statements',
+    persistent=True
+)
+
 search_handler = MessageHandler(Filters.text(lang_dict['search']), main.search)
 
 dp.add_handler(CommandHandler('order', main.command_order))
 dp.add_handler(CommandHandler('supply', main.command_supply))
 dp.add_handler(InlineQueryHandler(search.get_string)),
+dp.add_handler(my_statements_handler)
 dp.add_handler(search_handler)
 dp.add_handler(statement_handler)
 dp.add_handler(settings_handler)

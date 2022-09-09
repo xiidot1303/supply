@@ -15,7 +15,7 @@ def main_menu(update, context):
     bot = context.bot
     keyboard = [
         [get_word('start statement', update)],
-        # [get_word('search', update)],
+        [get_word('my statements', update)],
         [get_word('settings', update)],
 
     ]

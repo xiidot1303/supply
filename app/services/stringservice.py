@@ -146,3 +146,35 @@ def statement_status_for_applicant(statement, supply=None):
         text += '➖ ➖ ➖ ➖ ➖\n\n' + supply_details_text
 
     return text
+
+def statement_info_for_applicant(statement, supply=None):
+    user = statement.user
+    if statement.status == 'wait':
+        status = applicant_utils.get_word('does not confirmed', chat_id=user.user_id)
+    elif statement.status == 'conf':
+        status = applicant_utils.get_word('in tender', chat_id=user.user_id)
+    elif statement.status == 'end':
+        status = applicant_utils.get_word('will be supplied', chat_id=user.user_id)
+        supply_details_text = applicant_utils.get_word('supply details', chat_id=user.user_id).format(
+            supplier=supply.supplier.name, price=supply.price,
+            due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment
+        )
+
+    order_text = applicant_utils.get_word('order details', chat_id=user.user_id)
+    products = get_orders_of_statement(statement, order_text)
+
+    text = '{}\n\n{}: <i>{}</i>\n\n{}'.format(
+        applicant_utils.get_word('statement details', chat_id=user.user_id),
+        applicant_utils.get_word('status', chat_id=user.user_id),
+        status,
+        '{products}'
+    )
+
+    text = text.format(
+        order_id = statement.pk, products=products,   
+    )
+
+    if statement.status == 'end':
+        text += '➖ ➖ ➖ ➖ ➖\n\n' + supply_details_text
+
+    return text
