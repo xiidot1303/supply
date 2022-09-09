@@ -38,7 +38,7 @@ def accept_statement(update, context):
     statement = statementservice.get_object_by_id(int(id))
     text = stringservice.new_order_for_notification(statement)
 
-    if statementservice.confirm_statement(statement):
+    if statementservice.confirm_statement(obj=statement):
         bot_edit_message_text(update, context, text)
         bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщики')
     else:
@@ -51,7 +51,7 @@ def cancel_statement(update, context):
     statement = statementservice.get_object_by_id(int(id))
     text = stringservice.new_order_for_notification(statement)
 
-    if statementservice.cancel_statement_by_id(statement.pk):
+    if statementservice.cancel_statement(obj=statement):
         bot_edit_message_text(update, context, text)
         bot_answer_callback_query(update, context, 'Успешно отменено')
     else:

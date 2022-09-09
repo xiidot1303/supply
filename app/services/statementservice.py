@@ -53,7 +53,10 @@ def filter_orders_of_object(obj):
     orders = obj.orders.all()
     return orders
 
-def confirm_statement(obj):
+def confirm_statement(obj=None, id=None):
+    if not obj:
+        obj = get_object_by_id(id)
+        
     if obj.status == 'wait':
         obj.status = 'conf'
         obj.save()
@@ -68,8 +71,10 @@ def confirm_statement(obj):
     else:
         return False
 
-def cancel_statement_by_id(pk):
-    obj = get_object_by_id(pk)
+def cancel_statement(obj=None, id=None):
+    if not obj:
+        obj = get_object_by_id(id)
+        
     if obj.status == 'wait':
         obj.status = 'cancel'
         obj.save()

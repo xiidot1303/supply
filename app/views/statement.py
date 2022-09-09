@@ -25,5 +25,5 @@ def statement_accept_supply(request, pk):
 
 @login_required
 def statement_cancel(request, pk):
-    statementservice.cancel_statement_by_id(pk)
+    statementservice.cancel_statement(id=pk)
     return redirect(statement_list_all)
