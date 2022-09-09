@@ -84,11 +84,9 @@ def _to_the_finish_statement(update, obj):
 
 def _end_statement(update, context, obj):
     
-    # send notification to groups
+    # send notification to finance controllers
     notificationservice.send_statement_to_groups(obj)
-    supplierservice.send_statement_to_suppliers(obj)
-    apiservice.create_statement_api(obj)
-    
+
     obj.status = 'wait'
     obj.date = datetime.now()
     obj.save()

@@ -76,8 +76,8 @@ lang_dict = {
         ],
 
     "completed statement": [
-        "Rahmat! Sizning so'rovingiz qabul qilindi.\nID: {id}", 
-        "Спасибо! Ваша заявка принята.\nID: {id}"
+        "Rahmat! Sizning so'rovingiz qabul qilindi.\nID: #n_{id}", 
+        "Спасибо! Ваша заявка принята.\nID: #n_{id}"
         ],
 
     "search": ["Qidiruv 🔎", "Поиск 🔎"],
@@ -185,11 +185,20 @@ lang_dict = {
 
     "object": ["📍 Obyekt", "📍 Объект"],
 
-    "": ["", ""],
+    "your statement is confirmed": [
+        "☑️ Sizning buyurtmangiz finans kontroller tomonidan tasdiqlandi", 
+        "☑️ Ваше заявление подтверждено финансовым контролером"
+        ],
 
-    "": ["", ""],
+    "your statement is canceled": [
+        "❌ Sizning buyurtmangiz bekor qilindi", 
+        "❌ Ваше заявление отменено"
+        ],
 
-    "": ["", ""],
+    "your statement is accepted by supplier": [
+        "✅ Sizning buyurtmangiz ta'minotchi tomonidan qabul qilindi", 
+        "✅ Ваше заявление принято поставщиком"
+        ],
 
     "": ["", ""],
 

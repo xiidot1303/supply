@@ -21,7 +21,10 @@ def send_statement_to_groups(statement):
     text = stringservice.new_order_for_notification(statement)
 
     for n in Notification.objects.filter(access=True, type='order'):
-        send_newsletter(applicant_bot, n.group_id, text) 
+        i_accept = InlineKeyboardButton(text='✅ Принимать', callback_data='accept_statement-{}'.format(statement.pk))
+        i_cancel = InlineKeyboardButton(text='❌ Отменить', callback_data='cancel_statement-{}'.format(statement.pk))
+        button = InlineKeyboardMarkup([[i_accept, i_cancel]])
+        send_newsletter(applicant_bot, n.group_id, text, button) 
 
 def send_supply_to_groups(supply):
     text = stringservice.supply_details_for_notification(supply)

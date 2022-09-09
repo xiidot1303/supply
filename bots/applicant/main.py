@@ -6,6 +6,7 @@ from . import *
 from bots import *
 import time
 from bots.applicant.directive import *
+from bots.applicant.accept import accept_supply, accept_statement, cancel_statement
 from app.services import (
     notificationservice, 
     supplierservice, 
@@ -44,36 +45,16 @@ def statement(update, context):
 def search(update, context):
     return to_the_searching(update, context)
 
-def accept_supply(update, context):
+def accept(update, context):
     update = update.callback_query
     data = str(update.data)
 
-    if not 'accept_supply-' in data:
-        return
-    
-    *args, id = data.split('-')
-    supply = supplyservice.get_object_by_id(int(id))
-    st = supply.statement
-    
-    text = stringservice.supply_details_for_notification(supply)
-
-    # check, that statement is already ended
-    if st.status == 'end':
-        bot_answer_callback_query(update, context, 'Это заявление уже принято')
-        bot_edit_message_text(update, context, text)
-        return
-
-    # change status of supplies
-    for obj in supplyservice.filter_supplies_by_statement(st):
-        obj.status = 'cancel'
-        obj.save()
-
-    try:
-        supplyservice.confirm_supply(supply)
-        bot_edit_message_text(update, context, text)
-        bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
-    except:
-        bot_answer_callback_query(update, context, 'Ошибка')
+    if 'accept_supply-' in data:
+        accept_supply(update, context)
+    elif 'accept_statement-' in data:
+        accept_statement(update, context)
+    elif 'cancel_statement-' in data:
+        cancel_statement(update, context)
 
 
 def command_supply(update, context):

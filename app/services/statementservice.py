@@ -1,5 +1,5 @@
 from app.models import Statement, Order
-from app.services import applicantservice, apiservice
+from app.services import applicantservice, apiservice, supplierservice
 
 def create_and_get_object_by_update(update):
     user = applicantservice.get_object_by_user_id(update.message.chat.id)
@@ -24,12 +24,6 @@ def filter_unfinished_objects_by_update(update):
     user = applicantservice.get_object_by_update(update)
     objects = Statement.objects.filter(status=None, user=user)
     return objects
-
-def cancel_statement_by_id(pk):
-    obj = get_object_by_id(pk)
-    obj.status = 'cancel'
-    obj.save()
-    apiservice.cancel_statement_api(obj)
 
 def create_order_and_get():
     order = Order.objects.create()
@@ -59,3 +53,29 @@ def filter_orders_of_object(obj):
     orders = obj.orders.all()
     return orders
 
+def confirm_statement(obj):
+    if obj.status == 'wait':
+        obj.status = 'conf'
+        obj.save()
+        
+        supplierservice.send_statement_to_suppliers(obj)
+        apiservice.create_statement_api(obj)
+
+        # notify applicant
+        applicantservice.notify_user_about_statement_status(obj)
+        
+        return True
+    else:
+        return False
+
+def cancel_statement_by_id(pk):
+    obj = get_object_by_id(pk)
+    if obj.status == 'wait':
+        obj.status = 'cancel'
+        obj.save()
+        apiservice.cancel_statement_api(obj)
+        # notify applicant
+        applicantservice.notify_user_about_statement_status(obj)
+        return True
+    else:
+        return False

@@ -1,7 +1,7 @@
 from app.models import Supply
 from bots import *
 from bots.strings import lang_dict
-from app.services import supplierservice, apiservice
+from app.services import supplierservice, apiservice, applicantservice
 
 def create_object(statement, supplier):
     Supply.objects.create(statement=statement, supplier = supplier)
@@ -42,3 +42,6 @@ def confirm_supply(supply):
         st.status = 'end'
         st.supplier = supply.supplier
         st.save()
+        
+        # notify applicant
+        applicantservice.notify_user_about_statement_status(st, supply)

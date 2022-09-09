@@ -101,5 +101,5 @@ dp.add_handler(search_handler)
 dp.add_handler(statement_handler)
 dp.add_handler(settings_handler)
 dp.add_handler(login_handler)
-dp.add_handler(CallbackQueryHandler(main.accept_supply))
+dp.add_handler(CallbackQueryHandler(main.accept))
 

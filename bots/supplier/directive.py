@@ -19,7 +19,7 @@ def to_the_typing_supply_price(update, context):
         statement = statementservice.get_object_by_id(int(id))
         st = statement
         supplier = supplierservice.get_object_by_update(update)
-        if statement.status != 'wait':
+        if statement.status != 'conf':
             if statement.status == 'cancel':
                 bot_answer_callback_query(update, context, get_word('statement is cancelled', update))
             else:
