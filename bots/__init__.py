@@ -100,7 +100,7 @@ def inlinequeryresultarticle(title, description=None, product_id=None):
     return article
 
 def update_inline_query_answer(update, article):
-    update.inline_query.answer(article)
+    update.inline_query.answer(article, auto_pagination=True)
 
 def bot_answer_callback_query(update, context, text):
     bot = context.bot

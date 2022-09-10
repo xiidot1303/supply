@@ -27,7 +27,7 @@ def get_string(update, context):
             product_id=obj.pk
             ) 
             for obj in products
-    ][:50]
+    ]
     if not article:
         article = [
             inlinequeryresultarticle(get_word('not found', chat_id=update.inline_query.from_user.id))
