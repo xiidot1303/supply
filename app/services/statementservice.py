@@ -1,5 +1,11 @@
 from app.models import Statement, Order
-from app.services import applicantservice, apiservice, supplierservice
+from app.services import (
+    applicantservice, 
+    apiservice, 
+    supplierservice,
+    supplyservice,
+    notificationservice
+    )
 from django.db.models import Q
 
 def create_and_get_object_by_update(update):
@@ -90,3 +96,14 @@ def cancel_statement(obj=None, id=None):
         return True
     else:
         return False
+
+def supplied_statement_by_id(obj_id):
+    obj = get_object_by_id(obj_id)
+    if obj.status != 'supp':
+        obj.status = 'supp'
+        obj.save()
+
+        # notify groups and suppliers
+        supply = supplyservice.get_confirmed_supply_of_statement(obj)
+        notificationservice.send_confirmation_of_supply_to_groups(supply)
+        supplierservice.send_confirmation_of_supply_to_supplier(supply)

@@ -33,3 +33,9 @@ def send_supply_to_groups(supply):
         i_accept = InlineKeyboardButton(text='✅ Принимать', callback_data='accept_supply-{}'.format(supply.pk))
         button = InlineKeyboardMarkup([[i_accept]])
         send_newsletter(applicant_bot, n.group_id, text, reply_markup=button)
+
+def send_confirmation_of_supply_to_groups(supply):
+    text = stringservice.applicant_confirmed_supply(supply, to_group=True)
+
+    for n in Notification.objects.filter(access=True): # to all groups
+        send_newsletter(applicant_bot, n.group_id, text)

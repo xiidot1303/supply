@@ -12,13 +12,13 @@ def get_orders_of_statement(statement, order_text):
     for order in st.orders.all():
         if order.product_obj:
             continue
-        order_text = order_text
-        order_text = order_text.format(
+        text = order_text
+        text = text.format(
             title = order.product, 
             amount = order.amount,
             product_comment = order.comment
         )
-        products += order_text + '\n\n'
+        products += text + '\n\n'
     return products
 
 def new_order_for_notification(statement):
@@ -176,5 +176,35 @@ def statement_info_for_applicant(statement, supply=None):
 
     if statement.status == 'end':
         text += '➖ ➖ ➖ ➖ ➖\n\n' + supply_details_text
+
+    return text
+
+def applicant_confirmed_supply(supply, to_group=False):
+    def determine_text(text):
+        if to_group:
+            r_text = lang_dict[text][1]
+        else:
+            r_text = supplier_utils.get_word(text, chat_id=supply.supplier.user_id)
+        return r_text
+
+    st = supply.statement
+    applicant = st.user
+    
+    products = get_orders_of_statement(st, determine_text('order details'))
+    products += '➖ ➖ ➖ ➖ ➖'
+
+    text = '{header}\n\n{statement}\n\n{products}\n\n{applicant}\n\n{supply}'.format(
+        header = determine_text('applicant confirmed supply'),
+        statement = determine_text('statement details'),
+        products = products,
+        applicant = determine_text('applicant details'),
+        supply = determine_text('supply details')
+    )
+
+    text = text.format(
+        order_id = st.pk, applicant = applicant.name, phone = applicant.phone, object = st.object.title,
+        supplier = supply.supplier.name, price = supply.price, due = supply.due.strftime('%d.%m.%Y'), 
+        comment=supply.comment
+    )
 
     return text

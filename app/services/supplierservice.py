@@ -41,3 +41,9 @@ def send_accepted_message_to_supplier(supply):
     supplier = supply.supplier
     text = stringservice.accepted_message_for_supplier(supply)
     send_newsletter(supplier_bot, supplier.user_id, text, pin_message=True)
+
+def send_confirmation_of_supply_to_supplier(supply):
+    supplier = supply.supplier
+    text = stringservice.applicant_confirmed_supply(supply)
+    send_newsletter(supplier_bot, supplier.user_id, text)
+

@@ -16,8 +16,7 @@ def click_statement(update, context):
 
     if 'supplied_statement-' in data:
         *args, id = data.split('-')
-        st = statementservice.get_object_by_id(int(id))
-        st.status = 'supp'
-        st.save()
+        statementservice.supplied_statement_by_id(int(id))
+
         bot_answer_callback_query(update, context, get_word('success', update))
         bot_delete_message(update, context)

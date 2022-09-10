@@ -219,7 +219,10 @@ lang_dict = {
 
     "your statements": ["Sizning buyurtmalaringiz", "Ваши заявления"],
 
-    "": ["", ""],
+    "applicant confirmed supply": [
+        "✅ Ta'minotchi tovarlarni muvaffaqiyatli yetkazib berilgani, buyurtmachi tomonidan tasdiqlandi", 
+        "✅ Заявитель подтвердил, что снабженец успешно поставил товары"
+        ],
 
 
 
