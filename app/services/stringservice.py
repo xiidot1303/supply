@@ -208,3 +208,12 @@ def applicant_confirmed_supply(supply, to_group=False):
     )
 
     return text
+
+def your_supply_for_supplier(supply):
+    text = supplier_utils.get_word('your supply', chat_id=supply.supplier.user_id).format(
+        price = supply.price,
+        due = supply.due.strftime('%d.%m.%Y'),
+        comment = supply.comment
+    )
+
+    return text

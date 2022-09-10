@@ -1,6 +1,11 @@
 from . import *
 from bots import *
-from app.services import supplyservice, apiservice, notificationservice
+from app.services import (
+    supplyservice, 
+    apiservice, 
+    notificationservice,
+    stringservice
+    )
 from datetime import date, datetime
 
 def _to_the_typing_supply_price(update, obj):
@@ -35,7 +40,9 @@ def _end_supplying(update, context, obj):
         # send notifications
         apiservice.add_supply_api(obj)
         notificationservice.send_supply_to_groups(obj)
-        # text = get_word('completed supplying', update)
+        
+    text = stringservice.your_supply_for_supplier(obj)
+    update_message_reply_text(update, text)
     main_menu(update, context)
     return ConversationHandler.END
 

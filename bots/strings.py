@@ -123,9 +123,14 @@ lang_dict = {
 
     "supply details": 
     [
-
         """<b>📝 Shartlar</b>\nTa'minotchi: {supplier}\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
         """<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
+    ],
+
+    "your supply": 
+    [
+        """<b>📝 Sizning shartlaringiz</b>\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
+        """<b>📝 Ваши условия</b>\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
     ],
 
     "order": ["Buyurtma", "Заказ"],
