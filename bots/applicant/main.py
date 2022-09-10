@@ -14,6 +14,7 @@ from app.services import (
     stringservice
     )
 def start(update, context):
+    time.sleep(5)
     if is_group(update):
         return 
 
