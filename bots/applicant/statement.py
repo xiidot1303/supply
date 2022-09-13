@@ -51,6 +51,13 @@ def _to_the_asking_action(update, obj):
     update_message_reply_text(update, text, reply_markup)
     return GET_ACTION
 
+def _to_the_sending_photo(update, obj):
+    statementservice.empty_obj_photos(obj)
+    text = get_word('send photos', update)
+    reply_markup = reply_keyboard_markup([[get_word('next', update)], [get_word('back', update)]])
+    update_message_reply_text(update, text, reply_markup)
+    return GET_PHOTO
+
 def _to_the_typing_object(update):
     text = get_word('type object', update)
     reply_markup = get_objects_reply_markup()
@@ -85,6 +92,7 @@ def _to_the_finish_statement(update, obj):
 def _end_statement(update, context, obj):
     
     # send notification to finance controllers
+    bot_send_chat_action(update, context)
     notificationservice.send_statement_to_groups(obj)
 
     obj.status = 'wait'
@@ -176,7 +184,21 @@ def get_action(update, context):
         statementservice.add_order_to_the_obj(obj)
         return to_the_typing_product_name(update, context)
     elif msg == get_word('continue', update):
+        return _to_the_sending_photo(update, obj)
+
+@is_start
+def get_photo(update, context):
+    msg = update.message.text
+    obj = statementservice.get_current_object_by_update(update)
+    order = statementservice.get_last_order_of_object(obj)
+    if msg == get_word('back', update):
+        return _to_the_asking_action(update, obj)
+    
+    elif msg == get_word('next', update):
         return _to_the_typing_object(update)
+    
+    photo_path = save_and_get_photo(update, context)
+    statementservice.create_photo_and_add_to_obj(obj, photo_path)
 
 @is_start
 def get_object(update, context):
@@ -184,7 +206,7 @@ def get_object(update, context):
     obj = statementservice.get_current_object_by_update(update)
     order = statementservice.get_last_order_of_object(obj)
     if msg == get_word('back', update):
-        return _to_the_asking_action(update, obj)
+        return _to_the_sending_photo(update, obj)
 
     if objectservice.is_msg_object_title(msg):
         object = objectservice.get_object_by_msg(msg)

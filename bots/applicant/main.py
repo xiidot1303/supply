@@ -51,7 +51,7 @@ def my_statements(update, context):
 def accept(update, context):
     update = update.callback_query
     data = str(update.data)
-
+    bot_send_chat_action(update, context)
     if 'accept_supply-' in data:
         accept_supply(update, context)
     elif 'accept_statement-' in data:

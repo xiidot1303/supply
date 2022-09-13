@@ -35,12 +35,14 @@ def send_statement_to_suppliers(statement):
             )
         reply_markup = InlineKeyboardMarkup([[i_apply]])
         send_newsletter(supplier_bot, s.user_id, text, reply_markup) 
-
+        send_media_group(supplier_bot, s.user_id, st.photos)
 
 def send_accepted_message_to_supplier(supply):
     supplier = supply.supplier
+    st = supply.statement
     text = stringservice.accepted_message_for_supplier(supply)
     send_newsletter(supplier_bot, supplier.user_id, text, pin_message=True)
+    send_media_group(supplier_bot, supplier.user_id, st.photos)
 
 def send_confirmation_of_supply_to_supplier(supply):
     supplier = supply.supplier

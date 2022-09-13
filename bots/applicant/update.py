@@ -7,9 +7,9 @@ from telegram.ext import (
     MessageHandler,
     Filters,
     CallbackQueryHandler,
-    InlineQueryHandler
+    InlineQueryHandler,
+    TypeHandler
 )
-
 from config import APPLICANT_BOT_API_TOKEN, DEBUG
 
 from bots.strings import lang_dict
@@ -71,6 +71,14 @@ statement_handler = ConversationHandler(
         GET_PRODUCT_COMMENT: [MessageHandler(Filters.text, statement.get_product_comment)],
         GET_ACTION: [MessageHandler(Filters.text, statement.get_action)],
         GET_OBJECT: [MessageHandler(Filters.text, statement.get_object)],
+        GET_PHOTO: [
+            MessageHandler(
+                Filters.photo | Filters.text(lang_dict['next']+lang_dict['back']), 
+                statement.get_photo
+                ),
+            CommandHandler('start', statement.get_photo)
+            ],
+
         FINISH_STATEMENT: [MessageHandler(Filters.text, statement.finish_statement)],
     },
     fallbacks=[],

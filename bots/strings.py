@@ -229,7 +229,10 @@ lang_dict = {
         "✅ Заявитель подтвердил, что снабженец успешно поставил товары"
         ],
 
-
+    "send photos": [
+        "Kiritgan tovarlaringiz rasmlarini birlashtirilgan holda yuboring",
+        "Отправьте прикрепленные фотографии товаров"
+    ]
 
 }
 

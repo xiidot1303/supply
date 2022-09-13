@@ -92,7 +92,17 @@ def check_username(update):
 
 def delete_unfinished_statements(update):
     for obj in statementservice.filter_unfinished_objects_by_update(update):
+        # delete orders
         for order in obj.orders.all():
             order.delete()
+        # delete photos
+        for photo in obj.photos.all():
+            photo.delete()
         obj.delete() 
 
+def save_and_get_photo(update, context):
+    bot = context.bot
+    photo_id = bot.getFile(update.message.photo[-1].file_id)
+    *args, file_name = str(photo_id.file_path).split('/')
+    d_photo = photo_id.download('files/photos/{}'.format(file_name))
+    return str(d_photo).replace('files/', '')

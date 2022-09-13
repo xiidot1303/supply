@@ -26,6 +26,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from config import APPLICANT_BOT_API_TOKEN, SUPPLIER_BOT_API_TOKEN
 
+from app.views.main import *
 from app.views.botwebhook import *
 from app.views.statement import *
 from app.views.settings import *
@@ -50,6 +51,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile', change_profile, name = "change_profile"),
 
+    # files
+    path('files/photos/<str:file>/', get_photos),
+    
     # statment
     path('statement/list/all', statement_list_all, name='statement_list_all'),
     path('statement/supplies/<int:pk>/', statement_supplies, name='statement_supplies'),
@@ -80,3 +84,4 @@ urlpatterns = [
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

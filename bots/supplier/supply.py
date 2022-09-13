@@ -38,6 +38,7 @@ def _end_supplying(update, context, obj):
         obj.save()
     
         # send notifications
+        bot_send_chat_action(update, context)
         apiservice.add_supply_api(obj)
         notificationservice.send_supply_to_groups(obj)
         

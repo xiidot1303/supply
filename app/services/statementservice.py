@@ -1,4 +1,4 @@
-from app.models import Statement, Order
+from app.models import Statement, Order, Photo
 from app.services import (
     applicantservice, 
     apiservice, 
@@ -64,6 +64,16 @@ def get_last_order_of_object(obj):
 def filter_orders_of_object(obj):
     orders = obj.orders.all()
     return orders
+
+def create_photo_and_add_to_obj(obj, photo_path):
+    photo = Photo.objects.create(file=photo_path)
+    photo = Photo.objects.get(pk=photo.pk)
+    obj.photos.add(photo)
+    obj.save()
+
+def empty_obj_photos(obj):
+    for photo in obj.photos.all():
+        photo.delete()
 
 def confirm_statement(obj=None, id=None):
     if not obj:

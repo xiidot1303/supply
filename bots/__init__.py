@@ -5,10 +5,13 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     InlineQueryResultArticle,
-    InputTextMessageContent, 
+    InputTextMessageContent,
+    InputMediaPhoto,
+    InputMedia,
     ReplyKeyboardRemove,
     Bot,
     ParseMode,
+    ChatAction
 )
 from telegram.ext import (
     ConversationHandler
@@ -105,3 +108,15 @@ def update_inline_query_answer(update, article):
 def bot_answer_callback_query(update, context, text):
     bot = context.bot
     bot.answer_callback_query(callback_query_id=update.id, text=text, show_alert=True)
+
+def bot_send_chat_action(update, context, chat_action=ChatAction.TYPING):
+    bot = context.bot
+    bot.sendChatAction(update.message.chat.id, chat_action)
+
+def send_media_group(bot, chat_id, photos):
+
+    all = [InputMediaPhoto(photo.file) for photo in photos.all()]
+    try:
+        bot.send_media_group(chat_id = chat_id, media = all)
+    except:
+        w=0

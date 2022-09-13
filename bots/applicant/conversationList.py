@@ -1,4 +1,4 @@
-n = 17
+n = 18
 (
     SELECT_LANG,
     GET_NAME,
@@ -15,6 +15,7 @@ n = 17
     SEARCHING,
     GET_ACTION,
     GET_OBJECT,
+    GET_PHOTO,
     FINISH_STATEMENT,
     CLICK_STATEMENT,
 

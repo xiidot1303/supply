@@ -27,6 +27,9 @@ class NotificationAdmin(admin.ModelAdmin):
 class  ObjectAdmin(admin.ModelAdmin):
     list_display = ['title']
 
+class  PhotoAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'file']
+
 admin.site.register(Applicant, ApplicantAdmin)
 admin.site.register(Supplier, SupplierAdmin)
 admin.site.register(Statement, StatementAdmin)
@@ -35,3 +38,4 @@ admin.site.register(Supply, SupplyAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Notification, NotificationAdmin)
 admin.site.register(Object, ObjectAdmin)
+admin.site.register(Photo, PhotoAdmin)

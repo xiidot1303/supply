@@ -45,6 +45,7 @@ class Statement(models.Model):
     date = models.DateTimeField(null=True, blank=True, max_length=64)
     orders = models.ManyToManyField('app.Order', blank=True)
     object = models.ForeignKey('app.Object', null=True, blank=True, on_delete=models.PROTECT)
+    photos = models.ManyToManyField('app.Photo', blank=True)
     status = models.CharField(
         null=True,
         blank=True,
@@ -111,3 +112,6 @@ class Notification(models.Model):
 class Object(models.Model):
     title = models.CharField(null=True, blank=True, max_length=255)
     place = models.CharField(null=True, blank=True, max_length=255)
+
+class Photo(models.Model):
+    file = models.FileField(upload_to='photos', null=True, blank=True)
