@@ -61,7 +61,7 @@ def is_registered(id):
         return False
 
 def is_group(update):
-    if update.message.chat.type == 'group':
+    if update.message.chat.type == 'group' or update.message.chat.type == 'supergroup':
         return True
     return False
 
