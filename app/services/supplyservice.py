@@ -35,17 +35,18 @@ def filter_supplies_by_statement(statement):
 def confirm_supply(supply):
     st = supply.statement
     if st.status != 'end':
-        # send notification to Supplier
-        supplierservice.send_accepted_message_to_supplier(supply)
-
-        # confirmation api to 1c
-        apiservice.confirm_supply_api(supply)
 
         supply.status = 'conf'
         supply.save()
         st.status = 'end'
         st.supplier = supply.supplier
         st.save()
+        
+        # send notification to Supplier
+        supplierservice.send_accepted_message_to_supplier(supply)
+
+        # confirmation api to 1c
+        apiservice.confirm_supply_api(supply)
         
         # notify applicant
         applicantservice.notify_user_about_statement_status(st, supply)

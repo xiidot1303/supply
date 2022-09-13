@@ -232,7 +232,9 @@ lang_dict = {
     "send photos": [
         "Kiritgan tovarlaringiz rasmlarini birlashtirilgan holda yuboring",
         "Отправьте прикрепленные фотографии товаров"
-    ]
+    ],
+
+    "processing": ["⏳ Ishlanmoqda ...", "⏳ Обработка ..."],
 
 }
 

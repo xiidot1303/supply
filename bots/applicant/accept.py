@@ -37,6 +37,7 @@ def accept_statement(update, context):
     *args, id = data.split('-')
     statement = statementservice.get_object_by_id(int(id))
     text = stringservice.new_order_for_notification(statement)
+    bot_edit_message_text(update, context, text+'\n\n⏳ <b>Обработка ...</b>')
 
     if statementservice.confirm_statement(obj=statement):
         bot_edit_message_text(update, context, text)
