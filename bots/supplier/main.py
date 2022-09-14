@@ -27,3 +27,6 @@ def settings(update, context):
 @is_start
 def supply(update, context):
     return to_the_typing_supply_price(update, context)    
+
+def fallback(update, context):
+    return

@@ -56,7 +56,7 @@ settings_handler = ConversationHandler(
         PHONE_SETTINGS: [MessageHandler(Filters.all, settings.phone_settings)],
         NAME_SETTINGS: [MessageHandler(Filters.text, settings.name_settings)],
     },
-    fallbacks=[],
+    fallbacks=[CallbackQueryHandler(main.fallback)],
     name="settings",
     persistent=True,
 )
