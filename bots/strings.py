@@ -66,8 +66,8 @@ lang_dict = {
     ],
 
     "type product amount": [
-        "Mahsulot miqdorini kiriting", 
-        "Введите количество товара"
+        "Mahsulot miqdorini va o'lchovini kiriting", 
+        "Введите количество и измерение товара"
         ],
 
     "type product comment": [
