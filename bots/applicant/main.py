@@ -6,7 +6,10 @@ from . import *
 from bots import *
 import time
 from bots.applicant.directive import *
-from bots.applicant.accept import accept_supply, accept_statement, cancel_statement
+from bots.applicant.accept import (
+    accept_supply, cancel_supply, 
+    accept_statement, cancel_statement
+    )
 from app.services import (
     notificationservice, 
     supplierservice, 
@@ -54,6 +57,8 @@ def accept(update, context):
     bot_send_chat_action(update, context)
     if 'accept_supply-' in data:
         accept_supply(update, context)
+    elif 'cancel_supply-' in data:
+        cancel_supply(update, context)
     elif 'accept_statement-' in data:
         accept_statement(update, context)
     elif 'cancel_statement-' in data:

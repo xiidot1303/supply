@@ -115,6 +115,40 @@ def accepted_message_for_supplier(supply):
 
     return text
 
+def cancelled_message_for_supplier(supply, conf_supply=None):
+    st = supply.statement
+    supplier = supply.supplier
+
+    order_text = supplier_utils.get_word('order details', chat_id=supplier.user_id)
+    products = get_orders_of_statement(st, order_text)
+
+        
+    text = '{}\n\n{}\n{}➖ ➖ ➖ ➖ ➖\n\n{}\n\n{}'.format(
+        supplier_utils.get_word('your supply is cancelled', chat_id=supplier.user_id),
+        supplier_utils.get_word('statement details', chat_id=supplier.user_id),
+        '{products}',
+        supplier_utils.get_word('applicant details', chat_id=supplier.user_id),
+        supplier_utils.get_word('your supply', chat_id=supplier.user_id),
+        ).replace('\t', '')
+    text = text.format(
+        order_id=st.pk, products = products,
+        applicant=st.user.name, phone=st.user.phone, object=st.object.title,
+        price=supply.price, 
+        due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment,
+        )
+
+    # add supplier info, if other supplier is available
+    if conf_supply:
+        text += '\n\n{}'.format(
+            supplier_utils.get_word('supply details', chat_id=supplier.user_id),
+        )
+        text = text.format(
+            supplier=conf_supply.supplier.name, price=conf_supply.price, 
+            due=conf_supply.due.strftime('%d.%m.%Y'), comment=conf_supply.comment
+        )
+
+    return text
+
 def statement_status_for_applicant(statement, supply=None):
     user = statement.user
     status = statement.status

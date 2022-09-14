@@ -50,3 +50,12 @@ def confirm_supply(supply):
         
         # notify applicant
         applicantservice.notify_user_about_statement_status(st, supply)
+
+def cancel_supply(supply):
+    if supply.status != 'cancel':
+        supply.status = 'cancel'
+        supply.save()
+        supplierservice.send_cancelled_message_to_supplier(supply)
+        return True
+    else:
+        return False

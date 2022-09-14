@@ -1,7 +1,7 @@
 from app.models import Supplier, Product
 from bots import *
 from bots.strings import lang_dict
-from app.services import stringservice
+from app.services import stringservice, supplyservice
 
 def get_or_create(user_id):
     obj = Supplier.objects.get_or_create(user_id=user_id)
@@ -43,6 +43,15 @@ def send_accepted_message_to_supplier(supply):
     text = stringservice.accepted_message_for_supplier(supply)
     send_newsletter(supplier_bot, supplier.user_id, text, pin_message=True)
     send_media_group(supplier_bot, supplier.user_id, st.photos)
+
+def send_cancelled_message_to_supplier(supply):
+    supplier = supply.supplier
+    st = supply.statement
+    conf_supply = None
+    if st.supplier:
+        conf_supply = supplyservice.get_confirmed_supply_of_statement(st)
+    text = stringservice.cancelled_message_for_supplier(supply, conf_supply)
+    send_newsletter(supplier_bot, supplier.user_id, text)
 
 def send_confirmation_of_supply_to_supplier(supply):
     supplier = supply.supplier

@@ -121,6 +121,11 @@ lang_dict = {
         "✅ Ваши условия приняты. Вам необходимо снабжать этот продукт"
         ],
 
+    "your supply is cancelled": [
+        "❌ Sizning shartlaringiz bekor qilindi. Ushbu tovarlar boshqa ta'minotchi tomonidan ta'minlanadi", 
+        "❌ Ваши условия отменены. Этот товары будут поставляться другим поставщиком"
+        ],
+
     "supply details": 
     [
         """<b>📝 Shartlar</b>\nTa'minotchi: {supplier}\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",

@@ -17,20 +17,36 @@ def accept_supply(update, context):
     # check, that statement is already ended
     if st.status == 'end':
         bot_answer_callback_query(update, context, 'Это заявление уже принято')
-        bot_edit_message_text(update, context, text)
+        if supply.status == 'cancel':
+            bot_edit_message_text(update, context, text+'\n\n❌ <b>Отменено</b>')
         return
+    
+    bot_edit_message_text(update, context, text+'\n\n⏳ <b>Обработка ...</b>')
+    supplyservice.confirm_supply(supply)
+    # cancel others supply
+    for obj in supplyservice.filter_supplies_by_statement(st).exclude(pk=supply.pk):
+        supplyservice.cancel_supply(obj)
+    bot_edit_message_text(update, context, text+'\n\n✅ <b>Принято!</b>')
+    bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
+    
+def cancel_supply(update, context):
+    data = str(update.data)
+    *args, id = data.split('-')
+    supply = supplyservice.get_object_by_id(int(id))
+    st = supply.statement
+    
+    text = stringservice.supply_details_for_notification(supply)
 
-    # change status of supplies
-    for obj in supplyservice.filter_supplies_by_statement(st):
-        obj.status = 'cancel'
-        obj.save()
-
-    try:
-        supplyservice.confirm_supply(supply)
-        bot_edit_message_text(update, context, text)
-        bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщик')
-    except:
-        bot_answer_callback_query(update, context, 'Ошибка')
+    # check, that statement is already ended
+    if st.status == 'end':
+        bot_answer_callback_query(update, context, 'Это заявление уже принято')
+        if supply.status == 'cancel':
+            bot_edit_message_text(update, context, text+'\n\n❌ <b>Отменено</b>')
+        return
+        
+    supplyservice.cancel_supply(supply)
+    bot_edit_message_text(update, context, text+'\n\n❌ <b>Отменено</b>')
+    bot_answer_callback_query(update, context, 'Отменено! Успешно уведомлен поставщик')
 
 def accept_statement(update, context):
     data = str(update.data)
