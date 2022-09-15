@@ -165,6 +165,10 @@ lang_dict = {
         "ℹ️ <b>Информация о товаре</b>\n", 
         
         ],
+    
+    "info about products": [
+        "ℹ️ <b>Tovar haqida ma'lumotlar</b>", 
+        "ℹ️ <b>Информация о товаре</b>"],
 
     "statement is already accepted": [
         "Ushbu so'rov allaqachon qabul qilingan", 
@@ -249,7 +253,19 @@ lang_dict = {
     "type your own terms": [
         "Iltimos, o'z shartlaringizni kiriting",
         "Пожалуйста, введите свои условия"
-    ]
+    ],
+
+    "active orders": ["Faol buyurtmalar ♻️", "Активные заказы ♻️"],
+    
+    "active orders are not available": ["Faol buyurtmalar mavjud emas", "Активные заказы недоступны"],
+
+    "": ["", ""],
+
+    "": ["", ""],
+
+    "": ["", ""],
+
+    "": ["", ""],
 
 }
 

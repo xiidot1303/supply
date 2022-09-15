@@ -13,6 +13,7 @@ def main_menu(update, context):
 
     bot = context.bot
     keyboard = [
+        [get_word('active orders', update)],
         [get_word('settings', update)],
     ]
 

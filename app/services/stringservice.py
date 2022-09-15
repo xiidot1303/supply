@@ -91,6 +91,25 @@ def new_order_for_supplier(statement, supplier):
         text += '\n➖➖➖➖➖➖➖\n'
     return text
 
+def order_info_for_supplier(statement, supplier):
+    st = statement
+    text = '{}\n\n{}\n\n{}\n\n{}'.format(
+        supplier_utils.get_word('statement details', chat_id=supplier.user_id),
+        supplier_utils.get_word('applicant details', chat_id=supplier.user_id),
+        supplier_utils.get_word('info about products', chat_id=supplier.user_id),
+        '{products}'
+    )
+
+    order_text = supplier_utils.get_word('order details', chat_id=supplier.user_id)
+    products = get_orders_of_statement(statement, order_text)
+
+    text = text.format(
+        order_id = st.pk, applicant=st.user.name, 
+        user_id=st.user.user_id, phone=st.user.phone, object=st.object.title,
+        products = products
+    )
+    return text
+
 def accepted_message_for_supplier(supply):
     st = supply.statement
     supplier = supply.supplier

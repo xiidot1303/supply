@@ -24,7 +24,7 @@ def to_the_typing_supply_price(update, context):
                 bot_answer_callback_query(update, context, get_word('statement is cancelled', update))
             else:
                 bot_answer_callback_query(update, context, get_word('statement is already accepted', update))
-            text = stringservice.new_order_for_supplier(statement, supplier)
+            text = stringservice.order_info_for_supplier(statement, supplier)
             bot_edit_message_text(update, context, text)
             return
         supplyservice.create_object(statement, supplier)
@@ -33,3 +33,20 @@ def to_the_typing_supply_price(update, context):
         update_message_reply_text(update, text, reply_markup=button)
         bot_answer_callback_query(update, context, get_word('type your own terms', update), show_alert=False)
         return GET_SUPPLY_PRICE
+
+def to_the_active_statements_list(update, context):
+    statement_list = statementservice.filter_active_objects()
+    supplier = supplierservice.get_object_by_update(update)
+    for st in statement_list:
+        text = stringservice.order_info_for_supplier(st, supplier)
+        i_apply = InlineKeyboardButton(
+            text=stringservice.supply(supplier), 
+            callback_data='supply_statement-{}'.format(st.pk)
+            )
+        reply_markup = InlineKeyboardMarkup([[i_apply]])
+        bot_send_message(update, context, text, reply_markup)
+    
+    if not statement_list:
+        text = get_word('active orders are not available', update)
+        bot_send_message(update, context, text)
+    return

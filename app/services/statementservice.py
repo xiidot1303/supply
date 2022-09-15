@@ -32,6 +32,10 @@ def filter_unfinished_objects_by_update(update):
     objects = Statement.objects.filter(status=None, user=user)
     return objects
 
+def filter_active_objects():
+    objects = Statement.objects.filter(status='conf')
+    return objects
+
 def filter_active_statements_by_update(update):
     user = applicantservice.get_object_by_update(update)
     objects = Statement.objects.filter(Q(user=user) & ~Q(status='supp') & ~Q(status='cancel'))

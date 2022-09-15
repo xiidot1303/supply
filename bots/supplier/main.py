@@ -1,6 +1,6 @@
 from bots.strings import lang_dict
 from . import *
-from bots.supplier.directive import to_the_typing_supply_price
+from bots.supplier.directive import to_the_typing_supply_price, to_the_active_statements_list
 
 
 def start(update, context):
@@ -27,6 +27,11 @@ def settings(update, context):
 @is_start
 def supply(update, context):
     return to_the_typing_supply_price(update, context)    
+
+@is_start
+def active_statements(update, context):
+    to_the_active_statements_list(update, context)
+    return
 
 def fallback(update, context):
     update = update.callback_query
