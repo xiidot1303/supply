@@ -105,9 +105,9 @@ def inlinequeryresultarticle(title, description=None, product_id=None):
 def update_inline_query_answer(update, article):
     update.inline_query.answer(article, auto_pagination=True)
 
-def bot_answer_callback_query(update, context, text):
+def bot_answer_callback_query(update, context, text, show_alert=True):
     bot = context.bot
-    bot.answer_callback_query(callback_query_id=update.id, text=text, show_alert=True)
+    bot.answer_callback_query(callback_query_id=update.id, text=text, show_alert=show_alert)
 
 def bot_send_chat_action(update, context, chat_action=ChatAction.TYPING):
     bot = context.bot

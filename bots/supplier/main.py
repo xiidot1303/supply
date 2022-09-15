@@ -29,4 +29,7 @@ def supply(update, context):
     return to_the_typing_supply_price(update, context)    
 
 def fallback(update, context):
+    update = update.callback_query
+    text = get_word('go to main menu', update)
+    bot_answer_callback_query(update, context, text, show_alert=False)
     return
