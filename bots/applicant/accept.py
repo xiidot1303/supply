@@ -60,8 +60,13 @@ def accept_statement(update, context):
         bot_edit_message_text(update, context, text+'\n\n✅ Принято!')
         bot_answer_callback_query(update, context, 'Принято! Успешно уведомлен поставщики')
     else:
-        bot_edit_message_text(update, context, text)
-        bot_answer_callback_query(update, context, 'Это заявление уже одобрено')
+        if statement.status == 'cancel':
+            bot_answer_callback_query(update, context, 'Это заявление отменено')
+            status = '\n\n❌ Отменено'
+        else:
+            bot_answer_callback_query(update, context, 'Это заявление одобрено')
+            status = '\n\n✅ Принято!'
+        bot_edit_message_text(update, context, text+status)
 
 def cancel_statement(update, context):
     data = str(update.data)
@@ -73,9 +78,11 @@ def cancel_statement(update, context):
         bot_edit_message_text(update, context, text+'\n\n❌ Отменено')
         bot_answer_callback_query(update, context, 'Успешно отменено')
     else:
-        bot_edit_message_text(update, context, text)
         if statement.status == 'cancel':
             bot_answer_callback_query(update, context, 'Уже отменено')
+            status = '\n\n❌ Отменено'
         elif statement.status != 'wait':
             bot_answer_callback_query(update, context, 'Это заявление уже одобрено')
+            status = '\n\n✅ Принято!'
+        bot_edit_message_text(update, context, text+status)
 

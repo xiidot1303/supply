@@ -37,6 +37,10 @@ def filter_active_statements_by_update(update):
     objects = Statement.objects.filter(Q(user=user) & ~Q(status='supp') & ~Q(status='cancel'))
     return objects
 
+def filter_notconfirmed_statements():
+    query = Statement.objects.filter(status='wait')
+    return query
+
 def create_order_and_get():
     order = Order.objects.create()
     order = Order.objects.get(pk=order.pk)
