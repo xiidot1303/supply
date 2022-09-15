@@ -128,8 +128,8 @@ lang_dict = {
 
     "supply details": 
     [
-        """<b>📝 Shartlar</b>\nTa'minotchi: {supplier}\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
-        """<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
+        """<b>📝 Shartlar</b>\nTa'minotchi: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
+        """<b>📝 Условия</b>\nСнабженец: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
     ],
 
     "your supply": 
@@ -153,15 +153,15 @@ lang_dict = {
         ],
 
     "applicant details": [
-        "Buyurtmachi: {applicant}\nTelefon: {phone}\nObyekt: {object}",
-        "Заявитель: {applicant}\nНомер телефона: {phone}\nОбъект: {object}",
+        "Buyurtmachi: <a href='tg://user?id={user_id}'>{applicant}</a>\nTelefon: {phone}\nObyekt: {object}",
+        "Заявитель: <a href='tg://user?id={user_id}'>{applicant}</a>\nНомер телефона: {phone}\nОбъект: {object}",
     ],
 
     "new order": [
-        "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: {applicant}\nTelefon: {phone}\nObyekt: {object}\n\n" +
+        "🆕 <b>Yangi buyurtma № #n_{id}</b>\n\nBuyurtmachi: <a href='tg://user?id={user_id}'>{applicant}</a>\nTelefon: {phone}\nObyekt: {object}\n\n" +
         "ℹ️ <b>Tovar haqida ma'lumotlar</b>\n", 
         
-        "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: {applicant}\nНомер телефона: {phone}\nОбъект: {object}\n\n" +
+        "🆕 <b>Новый заказ № #n_{id}</b>\n\nЗаявитель: <a href='tg://user?id={user_id}'>{applicant}</a>\nНомер телефона: {phone}\nОбъект: {object}\n\n" +
         "ℹ️ <b>Информация о товаре</b>\n", 
         
         ],
@@ -241,9 +241,14 @@ lang_dict = {
 
     "processing": ["⏳ Ishlanmoqda ...", "⏳ Обработка ..."],
 
+    "go to main menu": [
+        "Iltimos asosiy menyuga o'tib, qaytatdan urinib ko'ring", 
+        "Пожалуйста, вернитесь в главное меню и повторите попытку."
+    ],
+
 }
 
 text = '📨 <b>Новая условия от снабженца</b>\n\n'
 text += '<b>📄 Заказ № #n_{order_id}</b>\n\n{products}➖ ➖ ➖ ➖ ➖\n\n'
-text += '<b>📝 Условия</b>\nСнабженец: {supplier}\nЦена: {price}\nСрок: {due}\nКомментарий: <i>{comment}</i>'
+text += '<b>📝 Условия</b>\nСнабженец: <a href="tg://user?id={supplier_id}">{supplier}</a>\nЦена: {price}\nСрок: {due}\nКомментарий: <i>{comment}</i>'
 lang_dict['notify new supply'] = text
