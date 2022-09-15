@@ -31,4 +31,5 @@ def to_the_typing_supply_price(update, context):
         text = get_word('type supply price', update) + ' ({} № #n_{})'.format(get_word('order', update), statement.pk)
         button = reply_keyboard_markup(keyboard=[[get_word('main menu', update)]])
         update_message_reply_text(update, text, reply_markup=button)
+        bot_answer_callback_query(update, context, get_word('type your own terms', update), show_alert=False)
         return GET_SUPPLY_PRICE
