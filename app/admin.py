@@ -12,7 +12,7 @@ class StatementAdmin(admin.ModelAdmin):
     list_display = ['pk', 'user', 'status']
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['product', 'amount', 'comment']
+    list_display = ['product', 'amount', 'measure', 'comment']
 
 class SupplyAdmin(admin.ModelAdmin):
     list_display = ['pk', 'statement', 'supplier', 'price', 'status']
@@ -22,7 +22,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['title']
 
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ['group_id']
+    list_display = ['group_id', 'title']
 
 class  ObjectAdmin(admin.ModelAdmin):
     list_display = ['title']

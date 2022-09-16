@@ -66,8 +66,8 @@ lang_dict = {
     ],
 
     "type product amount": [
-        "Mahsulot miqdorini va o'lchovini kiriting", 
-        "Введите количество и измерение товара"
+        "Mahsulot miqdorini va o'lchovini kiriting ({})\n<i>Namuna: 13 kg</i>", 
+        "Введите количество и измерение товара ({})\n<i>Образец: 13 кг</i>"
         ],
 
     "type product comment": [
@@ -148,8 +148,8 @@ lang_dict = {
     "your order": ["📄 Sizning buyurtmangiz", "📄 Ваше заявление"],
 
     "order details": [
-        "Tovar: {title}\nMiqdor: {amount}\nTafsilotlar: <i>{product_comment}</i>",
-        "Товар: {title}\nКоличество: {amount}\nКомментарий: <i>{product_comment}</i>"
+        "Tovar: {title}\nMiqdor: {amount} {measure}\nTafsilotlar: <i>{product_comment}</i>",
+        "Товар: {title}\nКоличество: {amount} {measure}\nКомментарий: <i>{product_comment}</i>"
         ],
 
     "applicant details": [

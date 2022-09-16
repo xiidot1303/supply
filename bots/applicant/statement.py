@@ -17,7 +17,7 @@ def _to_the_typing_product_type(update):
     return GET_PRODUCT_TYPE
 
 def _to_the_typing_product_amount(update, order):
-    text = get_word('type product amount', update) + ' ({})'.format(order.product)
+    text = get_word('type product amount', update).format(order.product)
     update_message_reply_text(update, text)
     return GET_PRODUCT_AMOUNT
 
@@ -33,7 +33,8 @@ def _to_the_asking_action(update, obj):
     for order in orders:
         text_order = get_word('order details', update)
         text_order = text_order.format(
-            title=order.product, amount=order.amount, product_comment=order.comment
+            title=order.product, amount=order.amount,
+            measure = order.measure or '', product_comment=order.comment
         )
         text_order += '\n➖➖➖➖➖➖➖\n'
         text += text_order
@@ -71,7 +72,8 @@ def _to_the_finish_statement(update, obj):
     for order in orders:
         text_order = get_word('order details', update)
         text_order = text_order.format(
-            title=order.product, amount=order.amount, product_comment=order.comment
+            title=order.product, amount=order.amount,
+            measure = order.measure or '', product_comment=order.comment
         )
         text_order += '\n➖➖➖➖➖➖➖\n'
         text += text_order
@@ -149,10 +151,16 @@ def get_product_amount(update, context):
     msg = update.message.text
     if msg == get_word('back', update):
         return to_the_typing_product_name(update, context)
-    
     obj = statementservice.get_current_object_by_update(update)
     order = statementservice.get_last_order_of_object(obj)
-    order.amount = msg
+    try:
+        amount, measure = str(msg).split(' ')
+        amount = int(amount)
+    except:
+        _to_the_typing_product_amount(update, order)        
+        return
+    order.amount = amount
+    order.measure = measure
     order.save()
 
     return _to_the_typing_product_comment(update, order)

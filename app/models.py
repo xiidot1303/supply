@@ -33,7 +33,8 @@ class Supplier(models.Model):
 class Order(models.Model):
     product = models.CharField(null=True, blank=True, max_length=255)
     type = models.CharField(null=True, blank=True, max_length=255)
-    amount = models.CharField(null=True, blank=True, max_length=64)
+    amount = models.IntegerField(null=True, blank=True)
+    measure = models.CharField(null=True, blank=True, max_length=64)
     comment = models.TextField(null=True, blank=True, max_length=1024)
     product_obj = models.ForeignKey('Product', null=True, blank=True, on_delete=models.PROTECT)
 

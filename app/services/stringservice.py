@@ -16,6 +16,7 @@ def get_orders_of_statement(statement, order_text):
         text = text.format(
             title = order.product, 
             amount = order.amount,
+            measure = order.measure or '',
             product_comment = order.comment
         )
         products += text + '\n\n'
@@ -34,6 +35,7 @@ def new_order_for_notification(statement):
         order_text = order_text.format(
             title = order.product, 
             amount = order.amount,
+            measure = order.measure or '',
             product_comment = order.comment
         )
         text += order_text
@@ -56,6 +58,7 @@ def supply_details_for_notification(supply):
         order_text = order_text.format(
             title = order.product, 
             amount = order.amount,
+            measure = order.measure or '',
             product_comment = order.comment
         )
         products += order_text + '\n\n'
@@ -85,6 +88,7 @@ def new_order_for_supplier(statement, supplier):
         order_text = order_text.format(
             title = order.product, 
             amount = order.amount,
+            measure = order.measure or '',
             product_comment = order.comment
         )
         text += order_text
