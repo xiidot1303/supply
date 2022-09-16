@@ -259,13 +259,13 @@ lang_dict = {
     
     "active orders are not available": ["Faol buyurtmalar mavjud emas", "Активные заказы недоступны"],
 
-    "": ["", ""],
+    "not confirmed by applicant": ["☑️ Buyurtmachi tomonidan tasdiqlanmagan", "☑️ Не подтверждено заявителем"],
 
-    "": ["", ""],
+    "confirmed by applicant": ["✅ Buyurtmachi tomonidan tasdiqlangan", "✅ Подтверждено заявителем"],
 
-    "": ["", ""],
+    "you have not supplies": ["❌ Sizda shartlar mavjud emas", "❌ У вас нет условий"],
 
-    "": ["", ""],
+    "my supplies": ["Mening shartlarim 🗒", "Мои условии 🗒"],
 
 }
 

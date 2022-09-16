@@ -2,6 +2,7 @@ from app.models import Supply
 from bots import *
 from bots.strings import lang_dict
 from app.services import supplierservice, apiservice, applicantservice
+from django.db.models import Q
 
 def create_object(statement, supplier):
     Supply.objects.create(statement=statement, supplier = supplier)
@@ -30,6 +31,10 @@ def filter_old_supplies_of_current_statement(update, supply):
 
 def filter_supplies_by_statement(statement):
     query = Supply.objects.filter(statement=statement).exclude(status=None)
+    return query
+
+def filter_supplies_for_history(supplier):
+    query = Supply.objects.filter(supplier=supplier).filter(Q(status='wait') | Q(status='conf'))
     return query
 
 def confirm_supply(supply):

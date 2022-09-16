@@ -50,3 +50,16 @@ def to_the_active_statements_list(update, context):
         text = get_word('active orders are not available', update)
         bot_send_message(update, context, text)
     return
+
+def to_the_supplies_list(update, context):
+    supplier = supplierservice.get_object_by_update(update)
+    supplies = supplyservice.filter_supplies_for_history(supplier)
+    for supply in supplies:
+        text = stringservice.supply_info_for_supplier(supply)
+        bot_send_message(update, context, text)
+    
+    if not supplies:
+        text = get_word('you have not supplies', update)
+        bot_send_message(update, context, text)
+    return
+        

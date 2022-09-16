@@ -9,7 +9,7 @@ class SupplierAdmin(admin.ModelAdmin):
 
 
 class StatementAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'user', 'status']
+    list_display = ['pk', 'user', 'object', 'status']
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['product', 'amount', 'measure', 'comment']

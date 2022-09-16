@@ -277,3 +277,38 @@ def your_supply_for_supplier(supply):
     )
 
     return text
+
+def supply_info_for_supplier(supply):
+    statement = supply.statement
+    applicant = statement.user
+    user = supply.supplier
+    if statement.status == 'supp':
+        status = applicant_utils.get_word('confirmed by applicant', chat_id=user.user_id)
+    elif statement.status == 'end':
+        status = applicant_utils.get_word('not confirmed by applicant', chat_id=user.user_id)
+    elif statement.status == 'conf':
+        status = applicant_utils.get_word('in tender', chat_id=user.user_id)
+
+    order_text = applicant_utils.get_word('order details', chat_id=user.user_id)
+    products = get_orders_of_statement(statement, order_text)
+
+    text = '{}\n\n{}: <i>{}</i>\n\n{}➖➖➖➖➖➖➖\n\n{}\n\n{}'.format(
+        applicant_utils.get_word('statement details', chat_id=user.user_id),
+        applicant_utils.get_word('status', chat_id=user.user_id),
+        status,
+        '{products}',
+        applicant_utils.get_word('applicant details', chat_id=user.user_id),
+        applicant_utils.get_word('supply details', chat_id=user.user_id),
+
+    )
+
+    text = text.format(
+        order_id = statement.pk, products=products,   
+        applicant = applicant.name, user_id=applicant.user_id, 
+        phone = applicant.phone, object = statement.object.title,
+        supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, 
+        price = supply.price, due = supply.due.strftime('%d.%m.%Y'), 
+        comment=supply.comment
+    )
+
+    return text

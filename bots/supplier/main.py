@@ -1,6 +1,10 @@
 from bots.strings import lang_dict
 from . import *
-from bots.supplier.directive import to_the_typing_supply_price, to_the_active_statements_list
+from bots.supplier.directive import (
+    to_the_typing_supply_price, 
+    to_the_active_statements_list,
+    to_the_supplies_list
+    )
 
 
 def start(update, context):
@@ -28,9 +32,12 @@ def settings(update, context):
 def supply(update, context):
     return to_the_typing_supply_price(update, context)    
 
-@is_start
 def active_statements(update, context):
     to_the_active_statements_list(update, context)
+    return
+
+def supplies_list(update, context):
+    to_the_supplies_list(update, context)
     return
 
 def fallback(update, context):

@@ -74,8 +74,11 @@ supply_handler = ConversationHandler(
 )
 
 active_orders_handler = MessageHandler(Filters.text(lang_dict['active orders']), main.active_statements)
+my_supplies_handler = MessageHandler(Filters.text(lang_dict['my supplies']), main.supplies_list)
+
 
 dp.add_handler(active_orders_handler)
+dp.add_handler(my_supplies_handler)
 dp.add_handler(settings_handler)
 dp.add_handler(supply_handler)
 
