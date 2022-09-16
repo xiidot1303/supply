@@ -260,7 +260,8 @@ def applicant_confirmed_supply(supply, to_group=False):
     )
 
     text = text.format(
-        order_id = st.pk, applicant = applicant.name, phone = applicant.phone, object = st.object.title,
+        order_id = st.pk, applicant = applicant.name, user_id=applicant.user_id, 
+        phone = applicant.phone, object = st.object.title,
         supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, 
         price = supply.price, due = supply.due.strftime('%d.%m.%Y'), 
         comment=supply.comment
