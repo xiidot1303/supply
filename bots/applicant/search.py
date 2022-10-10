@@ -19,11 +19,16 @@ def get_string(update, context):
         )
     type_text = get_word('product type', chat_id=update.inline_query.from_user.id)
     storage_text = get_word('storage', chat_id=update.inline_query.from_user.id)
-    description = '{type_text}: {type}\n{storage_text}: {storage}'
+    amount_text = get_word('amount', chat_id=update.inline_query.from_user.id)
+    description = '{type_text}: {type}\n{storage_text}: {storage}\n{amount_text}: {amount}'
     article = [
         inlinequeryresultarticle(
             obj.title, 
-            description=description.format(type_text=type_text, storage_text=storage_text, type=obj.type, storage=obj.warehouse),
+            description=description.format(
+                type_text=type_text, storage_text=storage_text, amount_text=amount_text,
+                type=obj.type, storage=obj.warehouse, amount=obj.amount
+                
+                ),
             product_id=obj.pk
             ) 
             for obj in products
