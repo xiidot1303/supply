@@ -38,5 +38,5 @@ def send_supply_to_groups(supply):
 def send_confirmation_of_supply_to_groups(supply):
     text = stringservice.applicant_confirmed_supply(supply, to_group=True)
 
-    for n in Notification.objects.filter(access=True): # to all groups
+    for n in Notification.objects.filter(access=True, type='order'): # to all groups
         send_newsletter(applicant_bot, n.group_id, text)
