@@ -128,8 +128,8 @@ lang_dict = {
 
     "supply details": 
     [
-        """<b>📝 Shartlar</b>\nTa'minotchi: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
-        """<b>📝 Условия</b>\nСнабженец: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
+        """<b>📝 Shartlar</b>\nTa'minotchi: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nTelefon: {supplier_phone}\nNarx: {price}\nMuddat: {due}\nTafsilotlar: <i>{comment}</i>""",
+        """<b>📝 Условия</b>\nСнабженец: <a href='tg://user?id={supplier_id}'>{supplier}</a>\nТелефон: {supplier_phone}\nЦена: {price}\nСрок: {due}\nКомментарие: <i>{comment}</i>"""
     ],
 
     "your supply": 

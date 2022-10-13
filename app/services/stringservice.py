@@ -132,8 +132,8 @@ def accepted_message_for_supplier(supply):
     text = text.format(
         order_id=st.pk, products = products,
         applicant=st.user.name, user_id=st.user.user_id, phone=st.user.phone, object=st.object.title,
-        supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, price=supply.price, 
-        due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
+        supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, supplier_phone=supply.supplier.phone, 
+        price=supply.price, due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment 
         )
 
     return text
@@ -166,8 +166,8 @@ def cancelled_message_for_supplier(supply, conf_supply=None):
             supplier_utils.get_word('supply details', chat_id=supplier.user_id),
         )
         text = text.format(
-            supplier=conf_supply.supplier.name, supplier_id=supply.supplier.user_id, 
-            price=conf_supply.price, 
+            supplier=conf_supply.supplier.name, supplier_id=conf_supply.supplier.user_id, 
+            price=conf_supply.price, supplier_phone=conf_supply.supplier.phone,
             due=conf_supply.due.strftime('%d.%m.%Y'), comment=conf_supply.comment
         )
 
@@ -183,7 +183,8 @@ def statement_status_for_applicant(statement, supply=None):
     elif status == 'end':
         header_text = applicant_utils.get_word('your statement is accepted by supplier', chat_id=user.user_id)
         supply_details_text = applicant_utils.get_word('supply details', chat_id=user.user_id).format(
-            supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, price=supply.price,
+            supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, supplier_phone=supply.supplier.phone,
+            price=supply.price,
             due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment
         )
 
@@ -214,7 +215,8 @@ def statement_info_for_applicant(statement, supply=None):
     elif statement.status == 'end':
         status = applicant_utils.get_word('will be supplied', chat_id=user.user_id)
         supply_details_text = applicant_utils.get_word('supply details', chat_id=user.user_id).format(
-            supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, price=supply.price,
+            supplier=supply.supplier.name, supplier_id=supply.supplier.user_id, supplier_phone=supply.supplier.phone,
+            price=supply.price,
             due=supply.due.strftime('%d.%m.%Y'), comment=supply.comment
         )
 
@@ -262,7 +264,7 @@ def applicant_confirmed_supply(supply, to_group=False):
     text = text.format(
         order_id = st.pk, applicant = applicant.name, user_id=applicant.user_id, 
         phone = applicant.phone, object = st.object.title,
-        supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, 
+        supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, supplier_phone=supply.supplier.phone,
         price = supply.price, due = supply.due.strftime('%d.%m.%Y'), 
         comment=supply.comment
     )
@@ -306,7 +308,7 @@ def supply_info_for_supplier(supply):
         order_id = statement.pk, products=products,   
         applicant = applicant.name, user_id=applicant.user_id, 
         phone = applicant.phone, object = statement.object.title,
-        supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, 
+        supplier = supply.supplier.name, supplier_id=supply.supplier.user_id, supplier_phone=supply.supplier.phone,
         price = supply.price, due = supply.due.strftime('%d.%m.%Y'), 
         comment=supply.comment
     )
