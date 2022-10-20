@@ -125,3 +125,10 @@ def supplied_statement_by_id(obj_id):
         supply = supplyservice.get_confirmed_supply_of_statement(obj)
         notificationservice.send_confirmation_of_supply_to_groups(supply)
         supplierservice.send_confirmation_of_supply_to_supplier(supply)
+
+def is_orders_empty(obj):
+    for order in obj.orders.all():
+        if not order.product_obj: # new order
+            return False
+    else:
+        return True

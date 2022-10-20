@@ -92,12 +92,16 @@ def _to_the_finish_statement(update, obj):
 
 
 def _end_statement(update, context, obj):
-    
-    # send notification to finance controllers
-    bot_send_chat_action(update, context)
-    notificationservice.send_statement_to_groups(obj)
+    # check orders that not empty
+    if statementservice.is_orders_empty(obj):
+        obj.status = 'cancel'
+    else:
+        # send notification to finance controllers
+        bot_send_chat_action(update, context)
+        notificationservice.send_statement_to_groups(obj)
 
-    obj.status = 'wait'
+        obj.status = 'wait'
+
     obj.date = datetime.now()
     obj.save()
     
