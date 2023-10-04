@@ -19,7 +19,7 @@ APPLICANT_BOT_API_TOKEN = os.environ.get("APPLICANT_BOT_API_TOKEN")
 SUPPLIER_BOT_API_TOKEN = os.environ.get("SUPPLIER_BOT_API_TOKEN")
 
 # Url
-STORAGE_URL = os.environ.get("ONE_C_SERVER_URL")+'/siyob_snab/hs/purchase/remains/'
-CREATING_STATEMENT_URL = os.environ.get("ONE_C_SERVER_URL")+'/siyob_snab/hs/purchase/order/'
+STORAGE_URL = os.environ.get("ONE_C_SERVER_URL")+'/siyob_snab_new/hs/purchase/remains/'
+CREATING_STATEMENT_URL = os.environ.get("ONE_C_SERVER_URL")+'/siyob_snab_new/hs/purchase/order/'
 ONE_C_SERVER_LOGIN = os.environ.get("ONE_C_SERVER_LOGIN")
 ONE_C_SERVER_PASSWORD = os.environ.get("ONE_C_SERVER_PASSWORD")
